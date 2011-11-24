@@ -1,0 +1,6 @@
+# ignore *.bak
+*.bak
+
+#ignore target dir
+target/*
+

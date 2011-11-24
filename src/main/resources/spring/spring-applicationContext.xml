@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:util="http://www.springframework.org/schema/util" 
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+		   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+		   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd
+		   http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd"
+	   default-autowire="byType" default-lazy-init="true">
+
+	<context:annotation-config/>
+	<context:component-scan base-package="com.eleven7.imall" />
+	
+	<bean id="autoProxyCreator" class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
+	<!-- 部署文件定义-->
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+		<property name="ignoreResourceNotFound" value="true"/>
+		<property name="locations">
+			<list>
+				<value>classpath:properties/config.properties</value>
+				<value>classpath:properties/db_config.properties</value>
+           	</list>
+		</property>
+	</bean>
+	<!-- 
+		messageSource放在imall_servlet.xml中时不会扫描WEB-INF外面的jsp文件（如login.jsp)，所以把它放在全局applicationContext文件中
+	-->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="globalization.messages" />
+		<property name="useCodeAsDefaultMessage" value="true" />
+	</bean>
+
+	<!-- Static Message Holder -->
+	<bean id="messageHolder" class="com.eleven7.imall.common.MessageHolder" scope="singleton" lazy-init="false">
+		<property name="messageSource" ref="messageSource" />
+	</bean>
+	<!-- 工具bean定义 -->
+	<bean id="applicationContextHolder" class="com.eleven7.imall.common.ApplicationContextHolder" scope="singleton" lazy-init="false" />
+	<!-- 导入其他配置文件 -->
+	<import resource="spring-dao.xml" />
+	<import resource="spring-security.xml" />
+	<import resource="spring-mail.xml"/>
+	
+</beans>
