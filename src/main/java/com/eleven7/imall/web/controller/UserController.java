@@ -1,6 +1,6 @@
 package com.eleven7.imall.web.controller;
 
-import java.util.Locale;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -13,12 +13,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.eleven7.imall.bean.Address;
 import com.eleven7.imall.bean.Userinfo;
 import com.eleven7.imall.common.MD5;
-import com.eleven7.imall.common.MessageHolder;
 import com.eleven7.imall.common.mail.MailHelp;
 import com.eleven7.imall.common.mail.MailTemplate;
 import com.eleven7.imall.common.mail.MailTemplateUtils;
@@ -70,6 +71,25 @@ public class UserController implements ServletContextAware{
 	public String login()
 	{
 		return "user/login";
+	}
+	@RequestMapping(value="address/new",method = RequestMethod.GET)
+	public ModelAndView newAddress()
+	{
+		ModelAndView view = new ModelAndView();
+		view.setViewName("/user/address");
+		Userinfo ui = this.userService.getUserbyEmail(SpringSecurityUtils.getCurrentUserName());
+		List<Address> addressList = this.userService.listAddressByUserid(ui.getId());
+		view.addObject("addressList", addressList);
+		return view;
+	}
+	@RequestMapping(value="address/createSubmit",method = RequestMethod.POST)
+	@ResponseBody
+	public Address createAddress(@ModelAttribute("address")Address address)
+	{
+		Userinfo ui = this.userService.getUserbyEmail(SpringSecurityUtils.getCurrentUserName());
+		address.setUserid(ui.getId());
+		this.userService.saveAddress(address);
+		return address;
 	}
 	@RequestMapping(value="registerSubmit",method = RequestMethod.POST)
 	public ModelAndView registerSubmit(@ModelAttribute("userDto")UserDto userDto,HttpServletRequest request)

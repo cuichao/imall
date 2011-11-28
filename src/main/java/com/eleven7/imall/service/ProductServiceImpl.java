@@ -57,5 +57,9 @@ public class ProductServiceImpl implements IProductService{
 	{
 		return this.productdetailDao.findByProperty("productid", productid);
 	}
+	public ProductDetail getProductDetail(Integer pd_id)
+	{
+		return this.productdetailDao.get(pd_id);
+	}
 
 }

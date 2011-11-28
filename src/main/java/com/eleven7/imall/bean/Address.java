@@ -27,10 +27,12 @@ public class Address {
 	private String mailcode;
 	@Column(length = 30)
 	private String phone;
+	@Column(length = 30)
+	private String telephone;
 	@Column
 	private Date createtime = new Date();
 	@Column
-	private Date updatetime;
+	private Date last_access_time;
 	public int getId() {
 		return id;
 	}
@@ -73,11 +75,17 @@ public class Address {
 	public void setCreatetime(Date createtime) {
 		this.createtime = createtime;
 	}
-	public Date getUpdatetime() {
-		return updatetime;
+	public String getTelephone() {
+		return telephone;
 	}
-	public void setUpdatetime(Date updatetime) {
-		this.updatetime = updatetime;
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+	public Date getLast_access_time() {
+		return last_access_time;
+	}
+	public void setLast_access_time(Date last_access_time) {
+		this.last_access_time = last_access_time;
 	}
 
 }

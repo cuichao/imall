@@ -10,7 +10,7 @@ body{ background:#cfcfcf}
 a{ text-decoration:none;  }
 .fl{ float:left}
 .fr{ float:right}
-.btn{ padding:5px 16px; border:none; cursor:pointer; font-size:16px; color:#f7f7f7; background:#699611; font-family:"微软雅黑","arial";}
+.btn{ padding:5px 16px; color:#699611; font-size:16px; color:#f7f7f7; background:#699611; font-family:"微软雅黑","arial";}
 .triangle{ width:17px; height:9px; overflow:hidden; font-size:12px}
 /* layout*/
 .container{ width:960px; margin:0 auto; }
@@ -44,7 +44,7 @@ a{ text-decoration:none;  }
 /*-----------------------------page----------------------------------*/
 .page{ text-align:right; margin-right:50px}
 .page a{ display:inline-block; padding:3px 7px; color:#808080}
-
+.page td{padding:2px;font-size:10px;}
 /*-----------------------------footer----------------------------------*/
 #footer{ height:46px; line-height:46px; background:#6a9e06; color:#c6e788; text-align:center}
 
@@ -61,29 +61,14 @@ a{ text-decoration:none;  }
 
 .banner{ text-align:center; padding-bottom:18px}
 .adv{ margin-left:19px}
-
-/*-----------------------------login&regist lr----------------------------------*/
-#main .lr{ background:#ebebeb;padding-top:45px; margin: 0 18px 32px}
-.login-con{ width:475px; padding-top:143px; background:url('../images/login-bg.png') no-repeat;}
-.regist-con{ width:475px; padding-top:143px; background:url('../images/regist-bg.png') no-repeat;}
-.login-con label,.regist-con label{ font-size:15px; color:#4d4a49; margin:0 6px 0 0; display:inline-block; width:70px; text-align:center}
-.login-con div,.regist-con div{ margin-top:12px}
-#passcode{ width:80px; }
-#user_name,#user_pw,#passcode{ height:22px; line-height:22px; border:1px solid #aba8a8}
-.passcode{ width:68px; vertical-align:bottom; height:24px}
-.login-btn{ margin-left:167px}
-.cart{ background:url('../images/cart-bg.png') #ebebeb right 55px no-repeat; padding:10px 0 0 42px; color:#4c4a49; margin-bottom:38px}
-.cart a{color:#4c4a49}
-.cart h2{ font-size:50px; color:#4d4b4b; font-family:"tahoma"; }
-.cart h3{ font-size:32px; font-family:"微软雅黑"; margin:0 0 20px}
-.cart table{ width:780px; border-collapse:collapse; word-wrap:break-word;table-layout:fixed; }
-.cart th{ padding:5px 8px; font-weight:normal; font-family:"微软雅黑";font-size:18px; background:rgba(154, 154, 154, 0.3) }
-.cart td{ padding:10px 8px 30px 8px; font-size:14px; background:url('../images/cart-shadow.png') 0 bottom repeat-x;}
-.cart-title{ width:560px; text-align:left}
-.cart-title a{ display:inline-block; padding:0}
-.cart-title img{ border:1px solid #cfcfcf; vertical-align:middle; margin-right:24px}
-.cart-num{ width:130px; text-align:center }
-.cart-price{ width:60px; text-align:center}
-.cart .cart-submit{ text-align:right; font-size:18px; background:none}
-.cart-submit a{ color:#fff}
-.cart-total{ color:#9f0606; margin:0 28px 0 7px}
+.img_normal_size{
+	width:145px;
+	height:145px;
+}
+.img_small_size{
+	width:45px;
+	height:45px;
+}
+.select{
+	
+}

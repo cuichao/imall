@@ -3,45 +3,67 @@
 	pageEncoding="UTF-8"%>
 <html>
 <head>
-<script type="text/javascript" src="<%=request.getContextPath()%>/js/user.js"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/js/user.js"></script>
 </head>
 <body>
-<form action="registerSubmit" method="post">
-<table id="registerTable">
-<tr>
-<td>邮箱</td>
-<td><input type="text" id="email" name="email"><span style="color: red;">*</span></td>
-</tr>
-<tr>
-<td>昵称</td>
-<td><input type="text" id="nickname" name="nickname"><span style="color: red;">*</span></td>
-</tr>
-<tr>
-<td>密码</td>
-<td><input type="password" id="password" name="password"><span style="color: red;">*</span></td>
-</tr>
-<tr>
-<td>再次输入密码</td>
-<td><input type="password" id="password1" name="password1"><span style="color: red;">*</span></td>
-</tr>
-<tr>
-<td>城市</td>
-<td><input type="text" id="city" name="city"></td>
-</tr>
-<tr>
-<td>电话</td>
-<td><input type="text" id="phone" name="phone"></td>
-</tr>
-<tr>
-<td>验证码</td>
-<td><input type="text" id="captcha" name="captcha" onfocus="getCaptchaOnfocus();">
-<span><img id="captcha_img" class="none"></img></span><span><a href="javascript:void(0);" onclick="getCaptcha();">看不清？</a></span></td>
-</tr>
-<tr>
-<td></td>
-<td><input type="submit" value="注册" onclick="return registerCheck();"></td>
-</tr>
-</table>
-</form>
+	<%@ include file="../header.jsp"%>
+	<div id="main">
+		<div class="container clearfix">
+			<div class="lr clearfix">
+				<a class="login-adv fl" href="javascript:"><img
+					src="${imall_path}images/login-img.png" width="447px" height="451px" alt="图片说明"
+					title="图片说明" />
+				</a>
+				<div id="registerTable" class="regist-con fl">
+					<form action="registerSubmit" method="post">
+						<div>
+							<label for="user_name" class="">邮箱</label> <input type="text"
+								id="email" name="email" class="required isHadUser"><span
+								style="color: red;">*</span>
+						</div>
+						<div>
+							<label for="user_name" class="">昵称</label> <input type="text"
+								id="nickname" name="nickname"><span style="color: red;">*</span>
+						</div>
+						<div>
+							<label for="user_pw" class="user_pw">密码</label> <input
+								type="password" id="password" name="password"
+								class="required text"><span style="color: red;">*</span>
+						</div>
+						<div>
+							<label for="user_pw1" class="user_pw1">密码确认</label> <input
+								type="password" id="password1" name="password1"
+								class="required text"><span style="color: red;">*</span>
+						</div>
+						<div>
+
+							<label for="city" class="">城市</label> <input type="text"
+								id="city" name="city">
+						</div>
+						<div>
+							<label for="city" class="">电话</label> <input type="text"
+								id="phone" name="phone">
+						</div>
+						<div>
+
+							<label for="passcode" class="">验证码</label> <input type="text"
+								id="captcha" name="captcha" onfocus="getCaptchaOnfocus();"
+								class="required checkCode"> <span><img
+								id="captcha_img" class="none"></img> </span><span><a
+								href="javascript:void(0);" onclick="getCaptcha();">看不清？</a> </span>
+
+						</div>
+						<div>
+							<input type="submit" value="注册" onclick="return registerCheck();"
+								class="btn login-btn">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<%@ include file="../footer.jsp"%>
 </body>
 </html>

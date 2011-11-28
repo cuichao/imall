@@ -27,7 +27,15 @@ public class ProductDetail {
 	private String note;
 	@Column(nullable = false)
 	private int productid;
+	@Column(nullable = false)
+	private int count;
 	
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
 	public int getId() {
 		return id;
 	}

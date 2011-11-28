@@ -2,6 +2,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <html>
+<head>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/js/product.js"></script>
+</head>
 <body>
 	<%@ include file="../header.jsp"%>
 	<div id="main">
@@ -9,8 +13,7 @@
 			<!--aside begin-->
 			<div class="aside">
 				<a href="javascript:"><img src="${imall_path}images/aside.png"
-					alt="图片说明" />
-				</a>
+					alt="图片说明" /> </a>
 			</div>
 			<!--header end-->
 			<!--content begin-->
@@ -21,7 +24,7 @@
 					<a class="list-img fl" href="javascript:"> <c:forEach
 							items="${product.pdList}" var="detail" begin="0" end="0">
 							<img src="${imall_path}${detail.picturePath}" alt="说明" title="说明"
-								class="img_size" />
+								class="img_normal_size" />
 
 						</c:forEach> </a>
 					<div class="list-content fl">
@@ -30,7 +33,29 @@
 								href="javascript:">${product.name}</a><span>583,203 sold</span>
 						</h3>
 						<p>${product.shortDesc}</p>
-						<a class="btn" href="javascript:">我要购买</a>
+						<c:set  var="detail_size" value="${fn:length(product.pdList)}"/>
+						<div id="selectId">
+							<c:if test="${detail_size > 1}">
+							请选择颜色：
+								<c:forEach items="${product.pdList}" var="detail">
+									<img src="${imall_path}${detail.picturePath}" alt="说明"
+										title="说明" class="img_small_size" id="${detail.id}"
+										onclick="selectProductDetail('${detail.id}');" />
+								</c:forEach>
+								<input type="hidden" name="select_pd" id="select_pd" value="" />
+							</c:if>
+							<c:if test="${detail_size == 1}">
+								<c:forEach items="${product.pdList}" var="detail" begin="0"
+									end="0">
+									<input type="hidden" name="select_pd" id="select_pd"
+										value="${detail.id}" />
+								</c:forEach>
+							</c:if>
+
+							请选择数量： <input type="text" id="count" name="count" value="1" /> <a
+								class="btn" href="${imall_path}mycar"
+								onclick="return addProduct2Cookie();">我要购买</a>
+						</div>
 					</div>
 				</div>
 				<!--product end-->

@@ -3,6 +3,7 @@
 	pageEncoding="UTF-8"%>
 <html>
 <head>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/create_product.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/product.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/ckeditor/ckeditor.js"></script>
 </head>
@@ -18,7 +19,7 @@
 <td><textarea id="short_desc" name="short_desc"></textarea></td>
 </tr>
 <tr>
-<td>故事</td>
+<td>商品故事</td>
 <td><textarea id="desc" name="desc"></textarea></td>
 </tr>
 <tr>
@@ -29,7 +30,7 @@
 <table>
 <tr>
 <td>
-<input type="button" value="增加图片" onclick="addPicTr();">
+<input type="button" value="增加商品详情" onclick="addPicTr();">
 <input type="hidden" id="pic_index" name="pic_index" value="0">
 </td>
 <td><input type="submit" value="创建" onclick="return checkSubmit();"></td>

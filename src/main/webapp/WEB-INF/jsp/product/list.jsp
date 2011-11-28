@@ -2,6 +2,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <html>
+<head>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/product.js"></script>
+</head>
 <body>
 <%@ include file="../header.jsp"%>
 	<div id="main">
@@ -20,7 +23,7 @@
 						<a class="list-img fl" href="${imall_path}product/${product.id}/show">
 							<c:forEach items="${product.pdList}" var="detail" begin="0" end="0">							
 								<img src="${imall_path}${detail.picturePath}" alt="说明"
-									title="说明" class="img_size" />
+									title="说明" class="img_normal_size" />
 							</c:forEach> 
 						</a>
 						<div class="list-content fl">

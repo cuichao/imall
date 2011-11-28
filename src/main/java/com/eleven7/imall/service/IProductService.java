@@ -13,5 +13,6 @@ public interface IProductService {
 	public List<Product> getList(PageBean pb);
 	public void saveProductDetailList(List<ProductDetail> list);
 	public List<ProductDetail> getProudctDetailList(Integer productid);
+	public ProductDetail getProductDetail(Integer pd_id);
 
 }

@@ -9,6 +9,7 @@
 <c:set var="imall_path" value="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/"/>
 
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery/jquery.cookie.js"></script>
 <script>
 var basePath ="<%=request.getContextPath()%>";
 </script>

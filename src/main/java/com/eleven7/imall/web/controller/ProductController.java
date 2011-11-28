@@ -86,10 +86,18 @@ public class ProductController implements ServletContextAware{
 				    e.printStackTrace();
 				   }
 				   String color = request.getParameter("color"+ index);
+				   int count = 0;
+					try {
+						count = Integer.parseInt(request.getParameter("count"+ index));
+					} catch (NumberFormatException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				   ProductDetail pd = new ProductDetail();
 				   pd.setColor(color);
 				   pd.setPicturePath(Constant.UPLOAD_PIC_PATH + "/" + picname);
 				   pd.setProductid(p.getId());
+				   pd.setCount(count);
 				   pdList.add(pd);
 			}
 		}
