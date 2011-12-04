@@ -6,9 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.eleven7.imall.bean.Product;
+import com.eleven7.imall.bean.ProductComment;
 import com.eleven7.imall.bean.ProductDetail;
+import com.eleven7.imall.bean.SendType;
+import com.eleven7.imall.dao.IProductCommentDao;
 import com.eleven7.imall.dao.IProductDao;
 import com.eleven7.imall.dao.IProductDetailDao;
+import com.eleven7.imall.dao.ISendTypeDao;
 import com.eleven7.imall.dao.base.PageBean;
 
 @Service
@@ -20,6 +24,21 @@ public class ProductServiceImpl implements IProductService{
 	@Autowired
 	private IProductDetailDao productdetailDao;
 	
+	@Autowired
+	private IProductCommentDao productCommentDao;
+	
+	@Autowired
+	private ISendTypeDao sendTypeDao;
+	
+	
+	public ISendTypeDao getSendTypeDao() {
+		return sendTypeDao;
+	}
+
+	public void setSendTypeDao(ISendTypeDao sendTypeDao) {
+		this.sendTypeDao = sendTypeDao;
+	}
+
 	public IProductDao getProductDao() {
 		return productDao;
 	}
@@ -35,6 +54,14 @@ public class ProductServiceImpl implements IProductService{
 	public void setProductdetailDao(IProductDetailDao productdetailDao) {
 		this.productdetailDao = productdetailDao;
 	}
+	public IProductCommentDao getProductCommentDao() {
+		return productCommentDao;
+	}
+
+	public void setProductCommentDao(IProductCommentDao productCommentDao) {
+		this.productCommentDao = productCommentDao;
+	}
+	
 
 	public void saveProduct(Product p)
 	{
@@ -60,6 +87,22 @@ public class ProductServiceImpl implements IProductService{
 	public ProductDetail getProductDetail(Integer pd_id)
 	{
 		return this.productdetailDao.get(pd_id);
+	}
+	
+	public void saveComment(ProductComment pc)
+	{
+		this.productCommentDao.save(pc);
+	}
+	public List<ProductComment> getCommentList(Integer pid)
+	{
+		PageBean pb = new PageBean();
+		pb.setShowAll(true);
+		pb.addDescOrder("createtime");
+		return this.productCommentDao.findByProperty(pb, "productid", pid);
+	}
+	public List<SendType> getAllSendType()
+	{
+		return this.sendTypeDao.findAll();
 	}
 
 }

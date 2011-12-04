@@ -28,10 +28,10 @@
 			 return false;
 		}
 		
-		 if(!checkCaptcha())
-		 {
-			 return false;
-		 }
+//		 if(!checkCaptcha())
+//		 {
+//			 return false;
+//		 }
 		 return true;
 		 
 	};

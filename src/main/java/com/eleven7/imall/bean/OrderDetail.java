@@ -26,6 +26,8 @@ public class OrderDetail {
 	private double totalpay;
 	@Column
 	private int num;
+	@Column
+	private int productdetailid;
 	
 	public int getId() {
 		return id;
@@ -63,8 +65,10 @@ public class OrderDetail {
 	public void setNum(int num) {
 		this.num = num;
 	}
-	
-	
-	
-
+	public int getProductdetailid() {
+		return productdetailid;
+	}
+	public void setProductdetailid(int productdetailid) {
+		this.productdetailid = productdetailid;
+	}
 }

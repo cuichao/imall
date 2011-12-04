@@ -4,16 +4,18 @@
  String nickname = SpringSecurityUtils.getCurrentNickName();
 %>
 <!--header begin-->
-<div class="login"> 
+<div class="login">
 	<div class="container">
 	    <% if(nickname != null){
 	    %>
 	       	您好，<a href="${imall_path}user/settings"><%=nickname%></a>
 	       	<a href="${imall_path}j_spring_security_logout">logout</a>
+	       	<input type="hidden" name="cur_user" id="cur_user" value="<%=nickname%>">
 	    <%
 	    }else{
 	    %>
 	       <a href="${imall_path}user/login">Login</a>
+	       <input type="hidden" name="cur_user" id="cur_user" value="">
 	    <%
 	    }
 	    %>

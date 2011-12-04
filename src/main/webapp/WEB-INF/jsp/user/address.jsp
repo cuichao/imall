@@ -8,10 +8,8 @@
 		<c:forEach items="${addressList}" var="address">
 		<c:set var="index" value="${index + 1}"/>
 			<div>
-				<input type="radio" id="${address.id}" name="radios" <c:if test="${index == 1}">checked</c:if>><span
-					id="span_${address.id}">${address.accepter} &nbsp;&nbsp;
-					${address.address}&nbsp;&nbsp;${address.mailcode} &nbsp;&nbsp;
-					${address.phone} &nbsp;&nbsp;${address.telephone}</span>
+				<input type="radio" id="address_${address.id}" name="address_radios" <c:if test="${index == 1}">checked</c:if>>
+				<span id="span_address_${address.id}">${address.accepter} ,${address.address},${address.mailcode} ,${address.phone} ,${address.telephone}</span>
 			</div>
 		</c:forEach>
 		<input type="button" value="确认收货地址" onclick="confirmAddress();">

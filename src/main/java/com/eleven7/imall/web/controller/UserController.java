@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.servlet.ModelAndView;
@@ -92,9 +93,17 @@ public class UserController implements ServletContextAware{
 		return address;
 	}
 	@RequestMapping(value="registerSubmit",method = RequestMethod.POST)
-	public ModelAndView registerSubmit(@ModelAttribute("userDto")UserDto userDto,HttpServletRequest request)
+	public ModelAndView registerSubmit(@ModelAttribute("userDto")UserDto userDto,
+			@RequestParam(value = "captcha",required=true)String captcha,
+			HttpServletRequest request)
 	{
 		ModelAndView view = new ModelAndView();
+		if(!CaptchaUtils.checkCaptcha(captcha,request))
+		{
+			view.setViewName("../../error");
+			view.addObject("error", "验证码不对");
+			return view;
+		}
 		view.setViewName("/user/registerresult");
 		Userinfo ui = userDto.getUserinfoByUserDto();
 		Userinfo existUi = this.userService.getUserbyEmail(ui.getEmail());

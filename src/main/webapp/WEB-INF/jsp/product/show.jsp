@@ -5,6 +5,8 @@
 <head>
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/js/product.js"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/js/user.js"></script>
 </head>
 <body>
 	<%@ include file="../header.jsp"%>
@@ -68,6 +70,16 @@
 					<span class="product-num fl">2</span>
 					<h3>买家评论</h3>
 				</div>
+				<div>
+					<input type="button" value="写评论" onclick="newCommnet('${product.id}');">
+					<div id="new_comment_div"></div>
+				</div>		
+				<div>
+				<c:forEach items="${commentList}" var="comment">
+				<div> ${comment.comment}</div>
+				<div>by  ${comment.user.nickname} ,at  ${comment.createtime}</div>
+				</c:forEach>
+				</div>	
 			</div>
 			<!--content end-->
 		</div>

@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "product_comment")
@@ -28,6 +29,17 @@ public class ProductComment {
 	private Date createtime = new Date();
 	@Column
 	private Date updatetime;
+	
+	@Transient
+	private Userinfo user ;
+	
+	public Userinfo getUser() {
+		return user;
+	}
+	public void setUser(Userinfo user) {
+		this.user = user;
+	}
+	
 	public int getId() {
 		return id;
 	}

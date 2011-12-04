@@ -108,7 +108,61 @@
 			  
 		  });
 	};
-	
-
-	
+	newCommnet = function(productid)
+	{
+		var cur_user = $("#cur_user").val();
+		if(cur_user == "")
+		{
+			alert("请先登陆！");
+			return false;
+		}
+		var url = basePath + "/product/" + productid + "/newcomment";
+		$("#new_comment_div").load(url);
+	};
+	checkSubmitComment = function()
+	{
+		var comment = $.trim($("#comment").val());
+		if(comment == "")
+		{
+			alert("评论不能为空！");
+			return false;
+		}
+		if(!checkCaptcha())
+		 {
+			 return false;
+		 }
+		
+		
+	};
+	checkCaptcha = function()
+	{  
+		var code = $.trim($("#captcha").val());
+		if(code == "")
+	    {	
+			alert("请填写验证码！");
+			return false;
+	    }
+		
+		var checkUrl = basePath + "/captcha/check?captcha="+code;
+		var result;
+		$.ajax({ 
+	          type : "get",  
+	          url  :  checkUrl,
+	          async : false,
+	          success : function(data){	        	
+	        	  if(data == "true")
+	        	  {
+	        		  result = true;
+	        	  }  
+	        	  else
+	        	  {
+	        		  alert("验证码不对！");
+	        		  result = false;
+	        	  }
+	        	  
+	        		  
+	          }
+	    });	 
+		return result;
+	};
 })(jQuery, window);

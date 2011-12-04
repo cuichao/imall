@@ -71,7 +71,7 @@
 			  
 		  });
 		$.cookie("imall_pd_list", toSaveInfo, { path: '/', expires: 30 });
-		this.location.href = basePath+"/showorder";
+		this.location.href = basePath+"/trade/showorder";
 	};
 	
 	

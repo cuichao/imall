@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.eleven7.imall.bean.Address;
 import com.eleven7.imall.bean.Product;
 import com.eleven7.imall.bean.ProductDetail;
+import com.eleven7.imall.bean.SendType;
 import com.eleven7.imall.bean.Userinfo;
 import com.eleven7.imall.security.SpringSecurityUtils;
 import com.eleven7.imall.service.IProductService;
@@ -56,7 +57,7 @@ public class TradeController {
 		view.addObject("pdDtoList",pddList);
 		return view;
 	}
-	@RequestMapping(value = "/showorder",method = RequestMethod.GET)
+	@RequestMapping(value = "/trade/showorder",method = RequestMethod.GET)
 	public ModelAndView showOrder(HttpServletRequest request)
 	{
 		ModelAndView view = new ModelAndView();
@@ -69,9 +70,11 @@ public class TradeController {
 		}
 		Userinfo ui = this.userService.getUserbyEmail(SpringSecurityUtils.getCurrentUserName());
 		List<Address> addressList = this.userService.listAddressByUserid(ui.getId());
+		List<SendType> sendtypeList = this.productService.getAllSendType();
 		view.addObject("totalMoney", totalMoney);
 		view.addObject("pdDtoList",pddList);
 		view.addObject("addressList", addressList);
+		view.addObject("sendtypeList", sendtypeList);
 		return view;
 		
 	}

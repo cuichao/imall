@@ -38,12 +38,7 @@ public class CaptchaController {
 	@ResponseBody
 	public boolean checkCaptcha(@RequestParam(value = "captcha",required=true)String captcha,HttpServletRequest request)
 	{
-	  	String sessionCode = (String)request.getSession().getAttribute("captcha");
-	  	if(sessionCode.equals(captcha))
-	  	{  		
-	  		return true;
-	  	}
-	  	return false;
+	  	return CaptchaUtils.checkCaptcha(captcha, request);
 	}
 	
 	
