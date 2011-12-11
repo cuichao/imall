@@ -70,16 +70,21 @@
 					<span class="product-num fl">2</span>
 					<h3>买家评论</h3>
 				</div>
-				<div>
-					<input type="button" value="写评论" onclick="newCommnet('${product.id}');">
+				<div class="product-comment">
+					<div class="product-comment-wrap">
+					<c:forEach items="${commentList}" var="comment">
+					<div class="product-comment-list">
+					<div class="comment-content"> ${comment.comment}</div>
+					<div class="product-comment-user">by  ${comment.user.nickname} ,at  ${comment.createtime}</div>
+					</div>
+					</c:forEach>
+					
+					</div>
+					
 					<div id="new_comment_div"></div>
+					<a href="javascript:" class="btn" id="product-coment-btn" onclick="newCommnet('${product.id}');">写评论</a>	
 				</div>		
-				<div>
-				<c:forEach items="${commentList}" var="comment">
-				<div> ${comment.comment}</div>
-				<div>by  ${comment.user.nickname} ,at  ${comment.createtime}</div>
-				</c:forEach>
-				</div>	
+				
 			</div>
 			<!--content end-->
 		</div>

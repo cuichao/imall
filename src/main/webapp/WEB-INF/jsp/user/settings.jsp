@@ -4,12 +4,15 @@
 <body>
 <%@ include file="../header.jsp"%>
 <div>
+<div id="main">
+		<div class="container clearfix">
 <table>
 <tr><td>邮箱</td><td>${user.email}</td></tr>
 <tr><td>昵称</td><td>${user.nickname}</td></tr>
 <tr><td>电话</td><td>${user.phone}</td></tr>
 </table>
 </div>
+</div></div>
 <%@ include file="../footer.jsp"%>
 </body>
 </html>

@@ -40,23 +40,25 @@
 								<td class="cart-price">￥<span name="price"
 									id="${dto.detail.id}_price" value="${dto.product.price}">${dto.product.price}</span>
 								</td>
-								<td class="cart-num"><input type="text"
-									id="${dto.detail.id}_count" value="${dto.count}"
-									onblur="setCount('${dto.detail.id}_count');" size="3"><a
-									href="javascript:addCount('${dto.detail.id}_count');">++</a>&nbsp;&nbsp;<a
-									href="javascript:subCount('${dto.detail.id}_count')">--</a>
+								<td class="cart-num">
+								<a href="javascript:addCount('${dto.detail.id}_count');">++</a>
+								<input type="text" id="${dto.detail.id}_count" value="${dto.count}"
+									onblur="setCount('${dto.detail.id}_count');" size="3">
+								<a href="javascript:subCount('${dto.detail.id}_count')">--</a>
 								</td>
 
 							</tr>
 						</c:forEach>
 						<tr>
-							<td class="cart-submit" colspan="3">商品总额总计：￥<span
-								id="totalmoney"></span></td>
+							<td class="cart-submit" colspan="3">
+							商品总额总计：￥
+							<span id="totalmoney" class="cart-total"></span>
+							<input class="btn mr20" type="button" value="结算" onclick="saveProduct2Cookie();">
+							</td>
 						</tr>
 						<tr>
 							<td id="bg_none" colspan="3" >
-							<input class="btn fr" type="button"
-								value="结算" onclick="saveProduct2Cookie();">
+							
 							</td>
 						</tr>
 					</c:if>
