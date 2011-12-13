@@ -59,9 +59,9 @@ public class UserServiceImpl implements IUserService {
 		return this.userinfoDao.get(userid);
 	}
 	
-	public void saveAddress(Address address)
+	public void saveOrUpdateAddress(Address address)
 	{
-		this.addressDao.save(address);
+		this.addressDao.saveOrUpdate(address);
 	}
 	public List<Address> listAddressByUserid(Integer userid)
 	{

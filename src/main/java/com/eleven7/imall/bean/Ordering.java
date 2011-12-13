@@ -2,7 +2,9 @@ package com.eleven7.imall.bean;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +13,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "ordering")
@@ -46,6 +49,23 @@ public class Ordering {
 	@Enumerated(value = EnumType.ORDINAL)
 	private OrderStatus status = OrderStatus.prePay;
 	
+	@Transient
+	private List<OrderDetail> odList = new ArrayList<OrderDetail>();
+	@Transient
+	private Userinfo user ;
+	
+	public Userinfo getUser() {
+		return user;
+	}
+	public void setUser(Userinfo user) {
+		this.user = user;
+	}
+	public List<OrderDetail> getOdList() {
+		return odList;
+	}
+	public void setOdList(List<OrderDetail> odList) {
+		this.odList = odList;
+	}
 	public int getId() {
 		return id;
 	}
@@ -125,5 +145,29 @@ public class Ordering {
 	public void setCarriageCost(double carriageCost) {
 		this.carriageCost = carriageCost;
 	}
+	
+	public void setPayType(int payType) {
+		
+		for(PayType pt : PayType.values())
+		{
+			if(pt.ordinal() == payType)
+			{
+				this.payType = pt;
+				break;
+			}
+		}
+	}
+	public void setTimeType(int timeType) {
+		
+		for(TimeType tt : TimeType.values())
+		{
+			if(tt.ordinal() == timeType)
+			{
+				this.timeType = tt;
+				break;
+			}
+		}
+	}
+
 
 }

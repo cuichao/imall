@@ -4,5 +4,4 @@ public enum PayType {
 	
 	PAY_ONLINE,
 	PAY_AFTER_PRODUCT_ARRIVED
-
 }

@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "order_detail")
@@ -29,6 +30,23 @@ public class OrderDetail {
 	@Column
 	private int productdetailid;
 	
+	@Transient
+	private ProductDetail productDetail;
+	@Transient
+	private Product product;
+	
+	public Product getProduct() {
+		return product;
+	}
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+	public ProductDetail getProductDetail() {
+		return productDetail;
+	}
+	public void setProductDetail(ProductDetail productDetail) {
+		this.productDetail = productDetail;
+	}
 	public int getId() {
 		return id;
 	}

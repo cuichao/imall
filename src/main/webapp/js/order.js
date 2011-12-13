@@ -1,9 +1,5 @@
 (function($, window, undefined) {
 	
-	$(document).ready(function() {
-		computerTotalPay();
-	});
-	
 	modifyAddress = function()
 	{
 		$("#selected_address").hide();
@@ -121,6 +117,20 @@
 		   var product_money = parseFloat($("#totalmoney").html());
 		   $("#total_to_pay").html(carriage + product_money);
 	};
+	sendOrder = function(orderId)
+	{
+		var url = basePath +"/back/trade/" + orderId +"/modifystatus?status=sending";
+		$.ajax({ 
+	          type : "get",  
+	          url  :  url,
+	          success : function(data){	
+	        	  $("#td_" + orderId + "_order_status").html("送货中"); 
+	        	  $("#" + orderId + "_send_button").attr("disabled",true);
+	          }
+	    });	 
+		
+	};
+	
 	
 	
 })(jQuery, window);

@@ -12,7 +12,7 @@
 </head>
 <body>
 	<%@ include file="../header.jsp"%>
-	<form>
+	<form:form action="${imall_path}trade/saveorder" method="POST" modelAttribute="orderDto">
 	
 	   <!-- begin 收货人信息 -->
 		<div>
@@ -170,8 +170,13 @@
 			</table>
 		</div>
 		<!-- end 商品清单-->
-	</form>
+	</form:form>
 	
 	<%@ include file="../footer.jsp"%>
 </body>
+<script>
+$(document).ready(function() {
+	computerTotalPay();
+});
+</script>
 </html>

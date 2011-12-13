@@ -89,7 +89,7 @@ public class UserController implements ServletContextAware{
 	{
 		Userinfo ui = this.userService.getUserbyEmail(SpringSecurityUtils.getCurrentUserName());
 		address.setUserid(ui.getId());
-		this.userService.saveAddress(address);
+		this.userService.saveOrUpdateAddress(address);
 		return address;
 	}
 	@RequestMapping(value="registerSubmit",method = RequestMethod.POST)

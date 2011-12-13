@@ -11,7 +11,7 @@ public interface IUserService {
 	public void saveOrUpdate(Userinfo ui);
 	public Userinfo getUserById(int userid);
 	
-	public void saveAddress(Address address);
+	public void saveOrUpdateAddress(Address address);
 	public List<Address> listAddressByUserid(Integer userid);
 	public Address getAddress(Integer id);
 	

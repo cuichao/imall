@@ -3,25 +3,38 @@ package com.eleven7.imall.web.controller;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.eleven7.imall.bean.Address;
+import com.eleven7.imall.bean.OrderDetail;
+import com.eleven7.imall.bean.OrderStatus;
+import com.eleven7.imall.bean.Ordering;
+import com.eleven7.imall.bean.PayType;
 import com.eleven7.imall.bean.Product;
 import com.eleven7.imall.bean.ProductDetail;
 import com.eleven7.imall.bean.SendType;
 import com.eleven7.imall.bean.Userinfo;
+import com.eleven7.imall.dao.base.PageBean;
 import com.eleven7.imall.security.SpringSecurityUtils;
+import com.eleven7.imall.service.IOrderService;
 import com.eleven7.imall.service.IProductService;
 import com.eleven7.imall.service.IUserService;
+import com.eleven7.imall.web.dto.OrderDto;
 import com.eleven7.imall.web.dto.ProductDetailDto;
 
 @Controller
@@ -48,6 +61,19 @@ public class TradeController {
 		this.productService = productService;
 	}
 	
+	@Autowired
+	private IOrderService orderService;
+	
+	
+	public IOrderService getOrderService() {
+		return orderService;
+	}
+
+	public void setOrderService(IOrderService orderService) {
+		this.orderService = orderService;
+	}
+	
+    //---------------------------普通用户访问----------------------------------------------------//
 	@RequestMapping(value = "/mycar",method = RequestMethod.GET)
 	public ModelAndView myShopCar(HttpServletRequest request)
 	{
@@ -78,7 +104,157 @@ public class TradeController {
 		return view;
 		
 	}
+	@RequestMapping(value = "/trade/saveorder",method = RequestMethod.POST)
+	public ModelAndView saveOrder(@ModelAttribute("orderDto")OrderDto orderDto,HttpServletRequest request,HttpServletResponse response)
+	{
+		ModelAndView view = new ModelAndView();
+		view.setViewName("/trade/pay");
+		List<ProductDetailDto> pddList = this.getProductDetailDtoListFromCookie(request);
+		Userinfo ui = this.userService.getUserbyEmail(SpringSecurityUtils.getCurrentUserName());
+		Ordering order = this.getOrderAndUpdateAddressByParams(orderDto, pddList, ui);
+		this.orderService.saveOrUpdateOrder(order);
+		this.orderService.saveOrderDetailList(this.getOrderdetailList(order, pddList));
+		this.removeProductFromCookie(response);
+		view.addObject("order", order);
+		return view;
+		
+	}
 	
+	//---------------------------管理用户操作----------------------------------------------------//
+	@RequestMapping(value = "/back/trade/tosendlist",method = RequestMethod.GET)
+	public ModelAndView wait2SendOrderList()
+	{
+		PageBean pb = new PageBean();
+		pb.setShowAll(true);
+		List<Ordering> orderList = this.orderService.getToSendOrderList(pb);
+		this.fillOrderInfo(orderList);
+		
+		ModelAndView view = new ModelAndView();
+		view.setViewName("/admin/orderlist");
+		view.addObject("orderList", orderList);
+		view.addObject("orderType", "toSendList");
+		return view;
+		
+	}
+	@RequestMapping(value = "/back/trade/cancellist",method = RequestMethod.GET)
+	public ModelAndView canceledList()
+	{
+		PageBean pb = new PageBean();
+		pb.setShowAll(true);
+		List<Ordering> orderList = this.orderService.getCanceledOrderList(pb);
+		this.fillOrderInfo(orderList);
+		ModelAndView view = new ModelAndView();
+		view.setViewName("/admin/orderlist");
+		view.addObject("orderList", orderList);
+		view.addObject("orderType", "canceledList");
+		return view;
+		
+	}
+	@RequestMapping(value = "/back/trade/sendinglist",method = RequestMethod.GET)
+	public ModelAndView sendingList()
+	{
+		PageBean pb = new PageBean();
+		pb.setShowAll(true);
+		List<Ordering> orderList = this.orderService.getSendingOrderList(pb);
+		this.fillOrderInfo(orderList);
+		ModelAndView view = new ModelAndView();
+		view.setViewName("/admin/orderlist");
+		view.addObject("orderList", orderList);
+		view.addObject("orderType", "sendingList");
+		return view;
+		
+	}
+	@RequestMapping(value = "/back/trade/tofinishlist",method = RequestMethod.GET)
+	public ModelAndView toFinishsList()
+	{
+		PageBean pb = new PageBean();
+		pb.setShowAll(true);
+		List<Ordering> orderList = this.orderService.getToFinishOrderList(pb);
+		this.fillOrderInfo(orderList);
+		ModelAndView view = new ModelAndView();
+		view.setViewName("/admin/orderlist");
+		view.addObject("orderList", orderList);
+		view.addObject("orderType", "toFinishList");
+		return view;
+		
+	}
+	@RequestMapping(value = "/back/trade/{orderId}/modifystatus",method = RequestMethod.GET)
+	@ResponseBody
+	public void modifyOrderStatus(@PathVariable("orderId") Integer orderId,
+			@RequestParam(value = "status",required=true)OrderStatus status)
+	{
+		Ordering order = this.orderService.getOrder(orderId);
+		order.setStatus(status);
+		this.orderService.saveOrUpdateOrder(order);	
+	}
+	
+	private void fillOrderInfo(List<Ordering> orderList)
+	{
+		for(Ordering order : orderList)
+		{
+			Userinfo ui = this.userService.getUserById(order.getUserid());
+			order.setUser(ui);
+			
+			List<OrderDetail> odList = this.orderService.getOrderDetailList(order.getId());
+			for(OrderDetail od : odList)
+			{
+				ProductDetail pd = this.productService.getProductDetail(od.getProductdetailid());
+				Product product = this.productService.getProduct(od.getProductid());
+				od.setProductDetail(pd);
+				od.setProduct(product);
+			}
+			order.setOdList(odList);
+		}	
+	}
+	//私有方法
+	private List<OrderDetail> getOrderdetailList(Ordering order,List<ProductDetailDto> pddList)
+	{
+		List<OrderDetail> odList = new ArrayList<OrderDetail>();
+		
+		for(ProductDetailDto pd : pddList)
+		{
+			OrderDetail od = new OrderDetail();
+			od.setNum(pd.getCount());
+			od.setOrderid(order.getId());
+			od.setPrice(pd.getProduct().getPrice());
+			od.setProductdetailid(pd.getDetail().getId());
+			od.setProductid(pd.getProduct().getId());
+			od.setTotalpay(pd.getProduct().getPrice()*pd.getCount());
+			odList.add(od);
+		}
+		return odList;
+		
+	}
+	private Ordering getOrderAndUpdateAddressByParams(OrderDto orderDto,List<ProductDetailDto> pddList,Userinfo ui)
+	{
+		Ordering order = new Ordering();
+		//update address last_access_time
+		Address address = this.userService.getAddress(orderDto.getAddress_id());
+		address.setLast_access_time(new Date());
+		this.userService.saveOrUpdateAddress(address);
+		
+		order.setAddressid(address.getId());
+		order.setAccepter(address.getAccepter());
+		order.setToAddress(address.getAddress()+"\t"+address.getMailcode()+"\t"+address.getPhone()+"\t"+address.getTelephone());
+		order.setUserid(ui.getId());
+		order.setCarriageCost(orderDto.getCarriage());
+		order.setPayType(orderDto.getPay_type());
+		order.setSendType(orderDto.getSend_type());
+		order.setTimeType(orderDto.getTime_type());
+		
+		if(order.getPayType() == PayType.PAY_AFTER_PRODUCT_ARRIVED)
+		{
+			order.setStatus(OrderStatus.preSend);
+		}
+		double totalMoney = 0.0;
+		for(ProductDetailDto pdd : pddList)
+		{
+			totalMoney += pdd.getProduct().getPrice()*pdd.getCount();
+		}
+		totalMoney += orderDto.getCarriage();
+		order.setTotalpay(totalMoney);		
+		return order;
+	}
 	private List<ProductDetailDto> getProductDetailDtoListFromCookie(HttpServletRequest request)
 	{
 		List<ProductDetailDto> pddList = new ArrayList<ProductDetailDto>();
@@ -122,6 +298,16 @@ public class TradeController {
 		return pddList;
 		
 	}
+	
+	private void removeProductFromCookie(HttpServletResponse response)
+	{
+		Cookie cookie = new Cookie("imall_pd_list", "");
+		cookie.setMaxAge(0);
+		cookie.setPath("/");
+		response.addCookie(cookie);
+	}
+	
+	
 
 
 }
