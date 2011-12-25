@@ -14,7 +14,7 @@
 var basePath ="<%=request.getContextPath()%>";
 </script>
 <style>
-        * { padding:0; margin: 0;Verdana, Geneva, sans-serif; font-size:12px}
+       /* * { padding:0; margin: 0;Verdana, Geneva, sans-serif; font-size:12px}*/
         .subhead span{cursor:pointer}
         .sub-subhead span{cursor:pointer}
 </style>

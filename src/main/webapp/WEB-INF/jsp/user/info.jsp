@@ -4,15 +4,9 @@
 <body>
 <%@ include file="../header.jsp"%>
 <div>
-<div id="main">
-		<div class="container clearfix">
-<table>
-<tr><td>邮箱</td><td>${user.email}</td></tr>
-<tr><td>昵称</td><td>${user.nickname}</td></tr>
-<tr><td>电话</td><td>${user.phone}</td></tr>
-</table>
+<iframe src="${imall_path}user/navigator"  id="leftFrame" name="leftFrame" width="19%" height="80%"></iframe>
+<iframe name="rightFrame" id="rightFrame" width="79%" height="80%"></iframe>
 </div>
-</div></div>
 <%@ include file="../footer.jsp"%>
 </body>
 </html>

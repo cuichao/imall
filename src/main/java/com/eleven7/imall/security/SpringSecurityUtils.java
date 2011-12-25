@@ -31,12 +31,14 @@ public class SpringSecurityUtils {
 	 *         如果当前用户未登录则返回<code>null</code>
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T extends UserDetails> T getCurrentUser() {
+	public static Userinfo getCurrentUser() {
 		Authentication authentication = getAuthentication();
-		if (authentication != null) {
+		if (authentication != null && authentication.getPrincipal() != null) {
 			Object principal = authentication.getPrincipal();
 			if (principal instanceof UserDetails) {
-				return (T) principal;
+				IUserService userService = ApplicationContextHolder.getBean(IUserService.class);
+			    Userinfo ui = userService.getUserbyEmail(authentication.getName());
+			    return ui;
 			}
 		}
 		return null;
@@ -62,11 +64,6 @@ public class SpringSecurityUtils {
 		    {
 		    	return ui.getNickname();
 		    }
-		    else
-		    {
-		    	return null;
-		    }
-		    	
 		}
 		return null;
 	}

@@ -14,7 +14,8 @@
 
         <!-- plain user operation -->
         <intercept-url pattern="/product/*/savecomment" access="hasRole('ROLE_USER')" />
-        <intercept-url pattern="/user/settings" access="hasRole('ROLE_USER')" />  
+        <intercept-url pattern="/user" access="hasRole('ROLE_USER')" />  
+        <intercept-url pattern="/user/" access="hasRole('ROLE_USER')" />  
         <intercept-url pattern="/user/address/*" access="hasRole('ROLE_USER')" />  
         <intercept-url pattern="/trade/*" access="hasRole('ROLE_USER')" />  
         <access-denied-handler error-page="/norole.jsp"/>

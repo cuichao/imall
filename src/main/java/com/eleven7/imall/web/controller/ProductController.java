@@ -32,6 +32,7 @@ import com.eleven7.imall.bean.Userinfo;
 import com.eleven7.imall.constant.Constant;
 import com.eleven7.imall.dao.base.PageBean;
 import com.eleven7.imall.security.SpringSecurityUtils;
+import com.eleven7.imall.security.SpringSecurityUtils;
 import com.eleven7.imall.service.IProductService;
 import com.eleven7.imall.service.IUserService;
 import com.eleven7.imall.web.dto.ProductDto;
@@ -175,7 +176,7 @@ public class ProductController implements ServletContextAware{
 			view.addObject("error", "验证码不对");
 			return view;
 		}
-		Userinfo ui = this.userService.getUserbyEmail(SpringSecurityUtils.getCurrentUserName());
+		Userinfo ui = SpringSecurityUtils.getCurrentUser();
 		Product p = this.productService.getProduct(productId);
 		Assert.notNull(p);
 		ProductComment pc = new ProductComment();

@@ -118,6 +118,7 @@
 		}
 		var url = basePath + "/product/" + productid + "/newcomment";
 		$("#new_comment_div").load(url);
+		$("#product-coment-btn").css({display:"none"});
 	};
 	checkSubmitComment = function()
 	{

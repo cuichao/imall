@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.eleven7.imall.bean.Address;
 import com.eleven7.imall.bean.OrderDetail;
+import com.eleven7.imall.bean.OrderPayment;
 import com.eleven7.imall.bean.OrderStatus;
 import com.eleven7.imall.bean.Ordering;
 import com.eleven7.imall.bean.PayType;
@@ -94,7 +95,7 @@ public class TradeController {
 		{
 			totalMoney += pdd.getProduct().getPrice()*pdd.getCount();
 		}
-		Userinfo ui = this.userService.getUserbyEmail(SpringSecurityUtils.getCurrentUserName());
+		Userinfo ui = SpringSecurityUtils.getCurrentUser();
 		List<Address> addressList = this.userService.listAddressByUserid(ui.getId());
 		List<SendType> sendtypeList = this.productService.getAllSendType();
 		view.addObject("totalMoney", totalMoney);
@@ -110,7 +111,7 @@ public class TradeController {
 		ModelAndView view = new ModelAndView();
 		view.setViewName("/trade/pay");
 		List<ProductDetailDto> pddList = this.getProductDetailDtoListFromCookie(request);
-		Userinfo ui = this.userService.getUserbyEmail(SpringSecurityUtils.getCurrentUserName());
+		Userinfo ui = SpringSecurityUtils.getCurrentUser();
 		Ordering order = this.getOrderAndUpdateAddressByParams(orderDto, pddList, ui);
 		this.orderService.saveOrUpdateOrder(order);
 		this.orderService.saveOrderDetailList(this.getOrderdetailList(order, pddList));
@@ -118,6 +119,18 @@ public class TradeController {
 		view.addObject("order", order);
 		return view;
 		
+	}
+	@RequestMapping(value = "/trade/{orderid}/order",method = RequestMethod.GET)
+	public ModelAndView OrderDetails(@PathVariable("orderid") Integer orderid)
+	{
+		ModelAndView view = new ModelAndView();
+		view.setViewName("/trade/orderdetails");
+		Ordering order = this.orderService.getOrder(orderid);
+		List<Ordering> orderList = new ArrayList<Ordering>();
+		orderList.add(order);
+		this.fillOrderInfo(orderList);
+		view.addObject("order", order);
+		return view;
 	}
 	
 	//---------------------------管理用户操作----------------------------------------------------//
@@ -164,17 +177,17 @@ public class TradeController {
 		return view;
 		
 	}
-	@RequestMapping(value = "/back/trade/tofinishlist",method = RequestMethod.GET)
-	public ModelAndView toFinishsList()
+	@RequestMapping(value = "/back/trade/finishlist",method = RequestMethod.GET)
+	public ModelAndView FinishedList()
 	{
 		PageBean pb = new PageBean();
 		pb.setShowAll(true);
-		List<Ordering> orderList = this.orderService.getToFinishOrderList(pb);
+		List<Ordering> orderList = this.orderService.getFinishedOrderList(pb);
 		this.fillOrderInfo(orderList);
 		ModelAndView view = new ModelAndView();
 		view.setViewName("/admin/orderlist");
 		view.addObject("orderList", orderList);
-		view.addObject("orderType", "toFinishList");
+		view.addObject("orderType", "finishList");
 		return view;
 		
 	}
@@ -186,6 +199,50 @@ public class TradeController {
 		Ordering order = this.orderService.getOrder(orderId);
 		order.setStatus(status);
 		this.orderService.saveOrUpdateOrder(order);	
+	}
+	@RequestMapping(value = "/trade/myorder",method = RequestMethod.GET)
+	public ModelAndView getOrderListByUser()
+	{
+		PageBean pb = new PageBean();
+		pb.setShowAll(true);
+		Userinfo ui = SpringSecurityUtils.getCurrentUser();
+		List<Ordering> orderList = this.orderService.getOrderListByUser(ui.getId(), pb);
+		ModelAndView view = new ModelAndView();
+		view.setViewName("/trade/userorder");
+		view.addObject("orderList", orderList);
+		return view;
+	}
+	@RequestMapping(value = "/trade/payhistory",method = RequestMethod.GET)
+	public ModelAndView getOrderPaymentListByUser()
+	{
+		PageBean pb = new PageBean();
+		pb.setShowAll(true);
+		pb.addDescOrder("createtime");
+		Userinfo ui = SpringSecurityUtils.getCurrentUser();
+		List<OrderPayment> opList = this.orderService.getOrderPaymentListByUser(ui.getId(), pb);
+		ModelAndView view = new ModelAndView();
+		view.setViewName("/trade/payhistorylist");
+		view.addObject("paymentList", opList);
+		return view;
+	}
+	@RequestMapping(value = "/trade/product",method = RequestMethod.GET)
+	public ModelAndView getBuyedProductByUser()
+	{
+		PageBean pb = new PageBean();
+		pb.setShowAll(true);
+		Userinfo ui = SpringSecurityUtils.getCurrentUser();
+		List<OrderDetail> odList = this.orderService.getOrderDetailListByUser(ui.getId(), pb);
+		for(OrderDetail od : odList)
+		{
+			ProductDetail pd = this.productService.getProductDetail(od.getProductdetailid());
+			Product product = this.productService.getProduct(od.getProductid());
+			od.setProductDetail(pd);
+			od.setProduct(product);
+		}
+		ModelAndView view = new ModelAndView();
+		view.setViewName("/trade/productlist");
+		view.addObject("orderdetailList", odList);
+		return view;
 	}
 	
 	private void fillOrderInfo(List<Ordering> orderList)

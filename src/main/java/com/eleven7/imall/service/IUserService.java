@@ -14,6 +14,7 @@ public interface IUserService {
 	public void saveOrUpdateAddress(Address address);
 	public List<Address> listAddressByUserid(Integer userid);
 	public Address getAddress(Integer id);
+	public void deleteAddress(Integer id);
 	
 	
 

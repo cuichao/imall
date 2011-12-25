@@ -38,13 +38,13 @@
 						<div>
 							<label for="user_name" class=""><fmt:message
 									key="login.email" /> </label> <input type="text" name="j_username"
-								id="j_username" class="required isHadUser"
+								id="j_username" class="required isHadUser user_name"
 								value='<c:if test="${not empty param.login_error}"><c:out value="${SPRING_SECURITY_LAST_USERNAME}" escapeXml="false"/></c:if>'>
 						</div>
 						<div>
 							<label for="user_pw" class=""><fmt:message
 									key="login.password" /> </label> <input type="password"
-								name="j_password" id="j_password" class="required text">
+								name="j_password" id="j_password" class="required text user_pw">
 						</div>
 						<%
 							String isNeedCAPTCHA = (String) request.getSession().getAttribute(
@@ -54,7 +54,7 @@
 						<div>
 							<label for="passcode" class="">验证码</label> <input type="text"
 								id="captcha" name="captcha" onfocus="getCaptchaOnfocus();"
-								class="required checkCode"> <img id="captcha_img"
+								class="required checkCode passcode"> <img id="captcha_img"
 								class="none"></img></span><span><a href="javascript:void(0);"
 								onclick="getCaptcha();">看不清？</a> </span>
 						</div>
@@ -64,7 +64,7 @@
 						<div>
 							<input type="submit" value="登陆"
 								onclick="return validateAccount();" class="btn login-btn">
-							<div>
+							<div class="no-username">
 								<a href="${imall_path}user/register">还没有帐号？</a>
 							</div>
 						</div>

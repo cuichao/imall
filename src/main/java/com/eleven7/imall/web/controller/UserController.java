@@ -1,5 +1,6 @@
 package com.eleven7.imall.web.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -53,16 +54,21 @@ public class UserController implements ServletContextAware{
 		this.userService = userService;
 	}
 
-	@RequestMapping(value="settings",method = RequestMethod.GET)
-	public ModelAndView getUserSettings()
+	@RequestMapping(method = RequestMethod.GET)
+	public String getUserInfo()
+	{	
+		return "/user/info";
+	}
+	@RequestMapping(value="/navigator",method = RequestMethod.GET)
+	public ModelAndView userNavigator()
 	{
-		String email = SpringSecurityUtils.getCurrentUserName();
-		Userinfo ui = this.userService.getUserbyEmail(email);
+		Userinfo ui = SpringSecurityUtils.getCurrentUser();
 		ModelAndView view = new ModelAndView();
-		view.setViewName("/user/settings");
+		view.setViewName("/user/navigator");
 		view.addObject("user", ui);
 		return view;
 	}
+	
 	@RequestMapping(value="register",method = RequestMethod.GET)
 	public String register()
 	{
@@ -78,19 +84,69 @@ public class UserController implements ServletContextAware{
 	{
 		ModelAndView view = new ModelAndView();
 		view.setViewName("/user/address");
-		Userinfo ui = this.userService.getUserbyEmail(SpringSecurityUtils.getCurrentUserName());
+		Userinfo ui = SpringSecurityUtils.getCurrentUser();
 		List<Address> addressList = this.userService.listAddressByUserid(ui.getId());
 		view.addObject("addressList", addressList);
 		return view;
+	}
+	@RequestMapping(value="address/manage",method = RequestMethod.GET)
+	public ModelAndView manageAddress()
+	{
+		ModelAndView view = new ModelAndView();
+		view.setViewName("/user/manageaddress");
+		Userinfo ui = SpringSecurityUtils.getCurrentUser();
+		List<Address> addressList = this.userService.listAddressByUserid(ui.getId());
+		view.addObject("addressList", addressList);
+		return view;
+	}
+	@RequestMapping(value="address/{addressId}/delete",method = RequestMethod.GET)
+	@ResponseBody
+	public int deleteAddress(@PathVariable("addressId") Integer addressId)
+	{
+		Address address  = this.userService.getAddress(addressId);
+		if(!canEditAddress(address))
+		{
+			return 1;
+		}
+		this.userService.deleteAddress(addressId);
+		return 0;
+		
+	}
+	private boolean canEditAddress(Address address)
+	{
+		Userinfo ui = SpringSecurityUtils.getCurrentUser();
+		if(ui.getId() == address.getUserid() || SpringSecurityUtils.hasAnyRole("ADMIN_USER"))
+		{
+			return true;
+		}
+		return false;
 	}
 	@RequestMapping(value="address/createSubmit",method = RequestMethod.POST)
 	@ResponseBody
 	public Address createAddress(@ModelAttribute("address")Address address)
 	{
-		Userinfo ui = this.userService.getUserbyEmail(SpringSecurityUtils.getCurrentUserName());
+		Userinfo ui = SpringSecurityUtils.getCurrentUser();
 		address.setUserid(ui.getId());
 		this.userService.saveOrUpdateAddress(address);
 		return address;
+	}
+	@RequestMapping(value="address/{addressId}/update",method = RequestMethod.POST)
+	@ResponseBody
+	public Address updateAddress(@PathVariable("addressId") int addressId,@ModelAttribute("addressDto")Address addressDto)
+	{
+		Address  addr = this.userService.getAddress(addressId);		
+		Userinfo ui = SpringSecurityUtils.getCurrentUser();
+		if(canEditAddress(addr))
+		{
+			addr.setUpdatetime(new Date());
+			addr.setAccepter(addressDto.getAccepter());
+			addr.setAddress(addressDto.getAddress());
+			addr.setMailcode(addressDto.getMailcode());
+			addr.setPhone(addressDto.getPhone());
+			addr.setTelephone(addressDto.getTelephone());
+			this.userService.saveOrUpdateAddress(addr);
+		}
+		return addr;
 	}
 	@RequestMapping(value="registerSubmit",method = RequestMethod.POST)
 	public ModelAndView registerSubmit(@ModelAttribute("userDto")UserDto userDto,

@@ -6,11 +6,13 @@ import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.eleven7.imall.bean.Ordering;
 import com.eleven7.imall.bean.OrderDetail;
+import com.eleven7.imall.bean.OrderPayment;
 import com.eleven7.imall.bean.OrderStatus;
+import com.eleven7.imall.bean.Ordering;
 import com.eleven7.imall.dao.IOrderDao;
 import com.eleven7.imall.dao.IOrderDetailDao;
+import com.eleven7.imall.dao.IOrderPaymentDao;
 import com.eleven7.imall.dao.base.PageBean;
 @Service
 public class OrderServiceImpl implements IOrderService{
@@ -21,7 +23,16 @@ public class OrderServiceImpl implements IOrderService{
 	private IOrderDao orderDao;
 	@Autowired
 	private IOrderDetailDao orderDetailDao;
+	@Autowired
+	private IOrderPaymentDao orderPaymentDao;
 	
+	
+	public IOrderPaymentDao getOrderPaymentDao() {
+		return orderPaymentDao;
+	}
+	public void setOrderPaymentDao(IOrderPaymentDao orderPaymentDao) {
+		this.orderPaymentDao = orderPaymentDao;
+	}
 	public IOrderDao getOrderDao() {
 		return orderDao;
 	}
@@ -66,7 +77,7 @@ public class OrderServiceImpl implements IOrderService{
 		return this.orderDao.find(pb, hql);
 		
 	}
-	public List<Ordering> getToFinishOrderList(PageBean pb)
+	public List<Ordering> getFinishedOrderList(PageBean pb)
 	{
 		String hql = String.format(TWO_ORDER_STATUS_SQL, OrderStatus.arrived.ordinal(),OrderStatus.payment_arrived.ordinal());
 		return this.orderDao.find(pb, hql);
@@ -78,6 +89,25 @@ public class OrderServiceImpl implements IOrderService{
 	public Ordering getOrder(Integer oid)
 	{
 		return this.orderDao.get(oid);
+	}
+	public List<Ordering> getOrderListByUser(Integer userid,PageBean pb)
+	{
+		return this.orderDao.findByProperty(pb,"userid" ,userid);
+	}
+	
+	public void saveOrUpdate(OrderPayment op)
+	{
+	 this.orderPaymentDao.saveOrUpdate(op);
+	}
+	public List<OrderPayment> getOrderPaymentListByUser(Integer userid,PageBean pb)
+	{
+		return this.orderPaymentDao.findByProperty(pb, "userid", userid);
+	}
+	public List<OrderDetail> getOrderDetailListByUser(Integer userid,PageBean pb)
+	{
+		pb.addDescOrder("od.id");
+		String hql = "select od from OrderDetail od ,Ordering o where o.userid = ? and o.id = od.orderid";
+		return this.orderDetailDao.find(pb, hql, userid);
 	}
 
 }

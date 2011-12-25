@@ -8,8 +8,8 @@
 待发货的订单
 </c:if> <c:if test="${orderType == 'sendingList'}">
 送货中的订单
-</c:if> <c:if test="${orderType == 'toFinishList'}">
-待完成的订单
+</c:if> <c:if test="${orderType == 'finishList'}">
+已完成的订单
 </c:if> <c:if test="${orderType == 'canceledList'}">
 已取消的订单
 </c:if></title>

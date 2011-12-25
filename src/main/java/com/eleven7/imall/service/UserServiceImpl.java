@@ -74,5 +74,9 @@ public class UserServiceImpl implements IUserService {
 	{
 		return this.addressDao.get(id);
 	}
+	public void deleteAddress(Integer id)
+	{
+		this.addressDao.delete(id);
+	}
 
 }

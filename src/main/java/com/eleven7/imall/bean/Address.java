@@ -32,6 +32,8 @@ public class Address {
 	@Column
 	private Date createtime = new Date();
 	@Column
+	private Date updatetime;
+	@Column
 	private Date last_access_time;
 	public int getId() {
 		return id;
@@ -87,5 +89,12 @@ public class Address {
 	public void setLast_access_time(Date last_access_time) {
 		this.last_access_time = last_access_time;
 	}
+	public Date getUpdatetime() {
+		return updatetime;
+	}
+	public void setUpdatetime(Date updatetime) {
+		this.updatetime = updatetime;
+	}
+	
 
 }

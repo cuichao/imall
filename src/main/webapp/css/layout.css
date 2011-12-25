@@ -12,8 +12,10 @@ a{ text-decoration:none;  }
 .fr{ float:right}
 .btn{ padding:5px 16px; border:none; cursor:pointer; font-size:16px; color:#f7f7f7; background:#699611; font-family:"微软雅黑","arial";}
 .triangle{ width:17px; height:9px; overflow:hidden; font-size:12px}
+.mr20{ margin-right:20px; }
+.hr12{ height:12px; visibility:hidden; border:none; margin:0; }
 /* layout*/
-.container{ width:960px; margin:0 auto; }
+.container{ width:960px; margin:0 auto}
 
 /*-----------------------------header----------------------------------*/
 .login{ background:#000; text-align:right; height:31px; line-height:31px; }
@@ -43,7 +45,8 @@ a{ text-decoration:none;  }
 
 /*-----------------------------page----------------------------------*/
 .page{ text-align:right; margin-right:50px}
-.page a{ display:inline-block; padding:3px 7px; color:#808080}
+.page a{ color:#72962C; }
+.page td{display:inline-block; padding:3px 7px; color:#808080}
 
 /*-----------------------------footer----------------------------------*/
 #footer{ height:46px; line-height:46px; background:#6a9e06; color:#c6e788; text-align:center}
@@ -54,10 +57,24 @@ a{ text-decoration:none;  }
 .product-title{ background: #ccdab2; margin:0 43px 0 26px}
 .product-title span{ display:inline-block; width:37px; margin-right:9px; padding-left:8px; height:29px; line-height:29px; font-size:18px; color:#fff; background:url('../images/triangle.png') right 0 #699611 no-repeat; }
 .product-title  h3{ height:29px; line-height:29px; font-size:14px; color:#4b6b0d; background:url('../images/b-triangle.png') right 11px no-repeat;}
-.product-detail{ margin:21px 0 0 72px; width:616px}
+.product-detail{ margin:0 0 0 72px; width:616px}
 .product-detail p{ line-height:22px; padding:15px 0; color:#4c4c4c}
 .product-info{  line-height:22px; padding:15px 0;}
 .product-info span{ display:inline-block; color:#4c4c4c; padding-right:25px; }
+.product-comment{ background:#FFF; margin: 12px 43px 0 72px; padding:0 12px 12px 0; text-align:right; border:1px solid #72962C;  }
+.product-comment-list{ text-align:left; padding:6px 0 6px 12px; color:#4C4C4C }
+.product-comment-user{ color:#446702; text-align:right; line-height:22px; }
+.comment-con-lab{ width:80px; text-align:right; vertical-align:top; }
+.comment-checkcode{ width:80px; text-align:right; height:32px; }
+.comment-checkcode-ipt input{ vertical-align:middle; height:20px; }
+.comment-checkcode-ipt span,.comment-checkcode-ipt img{ vertical-align:middle; display:inline-block; }
+#new_comment_div{ margin-top:12px; }
+.comment-content{ line-height22px; }
+.coment-con-area{ width:512px; height:60px; }
+.comment-summit-btn{ text-align:right; }
+.comment-content{ line-height:22px; width:566px; word-break:break-all; word-wrap:break-word; }
+.product-comment-wrap{ min-height:12px; padding-right:12px; }
+#product-coment-btn{  }
 
 .banner{ text-align:center; padding-bottom:18px}
 .adv{ margin-left:19px}
@@ -69,37 +86,46 @@ a{ text-decoration:none;  }
 .login-con label,.regist-con label{ font-size:15px; color:#4d4a49; margin:0 6px 0 0; display:inline-block; width:70px; text-align:center}
 .login-con div,.regist-con div{ margin-top:12px}
 #passcode{ width:80px; }
-#user_name,#user_pw,#passcode{ height:22px; line-height:22px; border:1px solid #aba8a8}
+.user_name,.user_pw,.passcode{ height:22px; line-height:22px; border:1px solid #aba8a8; width:153px; }
+.no-username a{ margin-left:20px; color:#4D4A49}
 .passcode{ width:68px; vertical-align:bottom; height:24px}
 .login-btn{ margin-left:167px}
 .cart{ background:url('../images/cart-bg.png') #ebebeb right 55px no-repeat; padding:10px 0 0 42px; color:#4c4a49; margin-bottom:38px}
-/*.cart a{color:#4c4a49}*/
+.cart a{color:#4c4a49}
 .cart h2{ font-size:50px; color:#4d4b4b; font-family:"tahoma"; }
 .cart h3{ font-size:32px; font-family:"微软雅黑"; margin:0 0 20px}
 .cart table{ width:780px; border-collapse:collapse; word-wrap:break-word;table-layout:fixed; }
-.cart th{ padding:5px 8px; font-weight:normal; font-family:"微软雅黑";font-size:18px; background:rgba(154, 154, 154, 0.3) }
+.cart th{ padding:5px 8px; color:#4c4a49; font-weight:normal; font-family:"微软雅黑";font-size:18px; background:rgba(154, 154, 154, 0.3) }
 .cart td{ padding:10px 8px 30px 8px; font-size:14px; background:url('../images/cart-shadow.png') 0 bottom repeat-x;}
+.cart td a{ font-size:14px;}
 .cart-title{ width:560px; text-align:left}
 .cart-title a{ display:inline-block; padding:0}
 .cart-title img{ border:1px solid #cfcfcf; vertical-align:middle; margin-right:24px}
 .cart-num{ width:130px; text-align:center }
+.cart-num input{ width:26px; text-align:center; }
 .cart-price{ width:60px; text-align:center}
 .cart .cart-submit{ text-align:right; font-size:18px; background:none}
 .cart-submit a{ color:#fff}
 .cart-total{ color:#9f0606; margin:0 28px 0 7px}
 
-.img_normal_size{
-	width:145px;
-	height:145px;
-}
-.img_small_size{
-	width:45px;
-	height:45px;
-}
-.select{
-	
-}
-#bg_none
-{
-  background: none repeat scroll 0 0 transparent;
-}
+.img_normal_size{ width:145px; height:145px; }
+.img_small_size{ width:45px; height:45px; }
+.select{ }
+#bg_none{ background: none repeat scroll 0 0 transparent; }
+
+/*-----------------------------order ensuer----------------------------------*/
+.order-ensure{ width:742px; background:#fff; padding:12px 36px; margin:0 auto; }
+.order-ensure h2{ font-size:22px; color:#333; font-weight:normal; border-bottom: 1px solid #C6C6C6; line-height: 1.5em;}
+
+.order-info{ text-align:right; }
+.order-product{ text-align:right; }
+.order-modify{ font-size:12px; color: #446702; }
+.order-ensure ul { border-bottom: 1px solid #C6C6C6; padding: 1em 0 1em 2em; font-size: 12px;color: #393939;}
+.order-ensure ul li { line-height: 1.8em; }
+.order-productlist{ padding:12px; }
+.order-productlist th{ border-bottom:1px solid #446702; line-height:32px; }
+.order-productlist td{ padding:6px 2px; }
+.order-product-title{ padding:10px 0 0 12px; }
+
+
+

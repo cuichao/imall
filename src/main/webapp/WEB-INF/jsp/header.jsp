@@ -1,16 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.eleven7.imall.security.*"%>
 <%
- String nickname = SpringSecurityUtils.getCurrentNickName();
+	String nickname = SpringSecurityUtils.getCurrentNickName();
+	boolean bAdmin = SpringSecurityUtils.hasAnyRole("ADMIN_USER");
 %>
 <!--header begin-->
 <div class="login">
 	<div class="container">
 	    <% if(nickname != null){
 	    %>
-	       	您好，<a href="${imall_path}user/settings"><%=nickname%></a>
+	       	您好，<a href="${imall_path}user"><%=nickname%></a>
 	       	<a href="${imall_path}j_spring_security_logout">logout</a>
 	       	<input type="hidden" name="cur_user" id="cur_user" value="<%=nickname%>">
+	     <%
+	     if(bAdmin)
+	     {
+	     %>
+	     <a href="${imall_path}admin/index">后台管理</a>
+	     <%
+	     }
+	     %>
 	    <%
 	    }else{
 	    %>
