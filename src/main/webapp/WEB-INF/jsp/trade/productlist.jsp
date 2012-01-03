@@ -6,7 +6,7 @@
 <head>
 <title>已购商品</title>
 </head>
-<body>
+<body class="bg-c-base">
 <div class="order-productlist">
 			<c:set var="dto_size" value="${fn:length(orderdetailList)}" />
 			<table id="shopcarTable">

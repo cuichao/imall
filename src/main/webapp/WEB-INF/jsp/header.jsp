@@ -38,9 +38,9 @@
 			<div class="search">
 				<input type="text" /><a href="#" class="search-btn"></a>
 			</div>
-			<a href="#">Index</a><a href="#">Products</a><a href="#">About</a>
+			<a href="${imall_path}">Index</a><a href="${imall_path}">Products</a><a href="#">About</a>
 		</div>
-		<a href="#" class="logo"><img src="${imall_path}images/logo.png" alt="opena" title="opena" /></a>
+		<a href="${imall_path}" class="logo"><img src="${imall_path}images/logo.png" alt="opena" title="opena" /></a>
 	</div>
 </div>
 <!--header end-->

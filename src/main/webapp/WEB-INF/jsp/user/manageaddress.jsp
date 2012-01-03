@@ -8,11 +8,11 @@
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/js/jquery/jquery.form.js"></script>
 </head>
-<body>
+<body class="bg-c-base">
 <div id="show_address_div">
 
 	<div id="old_address_div">
-	<b>现有收货地址：</b>
+	<h3>现有收货地址：</h3>
 		<c:forEach items="${addressList}" var="address">
 		<c:set var="index" value="${index + 1}"/>
 			<div id="div_address_${address.id}">
@@ -24,15 +24,16 @@
 				<li>固话：<span id="span_telephone_${address.id}">${address.telephone}</span></li>
 				</ul>
 			<div id="button_div_${address.id}">
-			<input type="button" value="修改" onclick="modifyAddress(${address.id});">
-			<input type="button" value="删除" onclick="deleteAddress('${address.id}');">
+			<hr class="hr12" />
+			<input class="btn" type="button" value="修改" onclick="modifyAddress(${address.id});">
+			<input class="btn" type="button" value="删除" onclick="deleteAddress('${address.id}');">
 			</div>
 			</div>
 		</c:forEach>
 	</div>
 	
 	<div id="new_address_div">
-	<b>新增收货地址：</b>
+	<h3>新增收货地址：</h3>
 		<form id="addressForm" action="${imall_path}user/address/createSubmit"
 			method="POST">
 			<ul>
