@@ -52,6 +52,12 @@
 		$("#"+ElementId).val(count);
 		computeTotalModey();
 	};
+	delProductdetail = function(productdetailId)
+	{
+		$("#" + productdetailId +"_tr").remove();
+		computeTotalModey();
+	};
+	
 	saveProduct2Cookie = function()
 	{
 		//pd_id=count;pd_id=count;....
@@ -70,6 +76,12 @@
 			  }
 			  
 		  });
+		if(toSaveInfo == "")
+		{
+			alert("请当前没有选择商品，请返回重新选择！");
+			return false;
+		}
+		
 		$.cookie("imall_pd_list", toSaveInfo, { path: '/', expires: 30 });
 		this.location.href = basePath+"/trade/showorder";
 	};

@@ -13,7 +13,7 @@ public interface IProductService {
 	public void saveProduct(Product p);
 	public Product getProduct(Integer pid);
 	public List<Product> getList(PageBean pb);
-	public void saveProductDetailList(List<ProductDetail> list);
+	public void saveOrUpdateProductDetailList(List<ProductDetail> list);
 	public List<ProductDetail> getProudctDetailList(Integer productid);
 	public ProductDetail getProductDetail(Integer pd_id);
 	

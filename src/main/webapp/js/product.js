@@ -52,6 +52,12 @@
 			alert("请选择颜色!");
 			return false;
 		}
+		var num_limit = $("#count_" + pd_id).val();
+		if(count > num_limit)
+		{
+			alert("对不起，该商品只剩"+num_limit + "件了，请重新选择数量！");
+			return false;
+		}
 		//pd_id=count;pd_id=count;....
 		var saved_pd = $.cookie("imall_pd_list");
 		if(saved_pd != null)
@@ -95,8 +101,16 @@
 				  if(!$(img).hasClass("select"))
 				  {
 					 $(img).addClass("select"); 
-				  }		  
-				  
+				  }
+				  var num_limit = $("#count_" + pd_id).val();
+				  if( num_limit == 0 )
+				  {
+					  $("#detail_desc").val("此颜色缺货");
+				  }
+				  else
+				  {
+					  $("#detail_desc").val("");
+				  } 
 			  }
 			  else
 			  {
@@ -108,7 +122,7 @@
 			  
 		  });
 	};
-	newCommnet = function(productid)
+	newComment = function(productid)
 	{
 		var cur_user = $("#cur_user").val();
 		if(cur_user == "")

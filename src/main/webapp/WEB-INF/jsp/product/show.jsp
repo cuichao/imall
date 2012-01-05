@@ -32,17 +32,21 @@
 					<div class="list-content fl">
 						<h3>
 							<span class="product-price fr">￥${product.price}</span> <a
-								href="javascript:">${product.name}</a><span>583,203 sold</span>
+								href="javascript:">${product.name}</a>
+						<c:if test="${product_count == 0}">
+							<span style="color:red;">缺货</span>
+						</c:if>
 						</h3>
 						<p>${product.shortDesc}</p>
 						<c:set  var="detail_size" value="${fn:length(product.pdList)}"/>
 						<div id="selectId">
 							<c:if test="${detail_size > 1}">
-							请选择颜色：
+							请选择颜色：<span id="detail_desc" class="red"></span>
 								<c:forEach items="${product.pdList}" var="detail">
 									<img src="${imall_path}${detail.picturePath}" alt="说明"
 										title="说明" class="img_small_size" id="${detail.id}"
 										onclick="selectProductDetail('${detail.id}');" />
+									<input type="hidden" id="count_${detail.id}" value="${detail.count}">
 								</c:forEach>
 								<input type="hidden" name="select_pd" id="select_pd" value="" />
 							</c:if>
@@ -51,12 +55,19 @@
 									end="0">
 									<input type="hidden" name="select_pd" id="select_pd"
 										value="${detail.id}" />
+									<input type="hidden" id="count_${detail.id}" value="${detail.count}">
 								</c:forEach>
-							</c:if>
-
-							请选择数量： <input type="text" id="count" name="count" value="1" /> <a
+							</c:if>               
+							请选择数量：
+							<c:if test="${product_count == 0}">
+							<input type="text" id="count" name="count" value="1" disabled/>
+							<input class="btn disabled" type="button" value="我要购买" disabled>
+                            </c:if>
+                            <c:if test="${product_count != 0}">
+                             <input type="text" id="count" name="count" value="1" /> <a
 								class="btn" href="${imall_path}mycar"
 								onclick="return addProduct2Cookie();">我要购买</a>
+							</c:if>
 						</div>
 					</div>
 				</div>
@@ -82,7 +93,7 @@
 					</div>
 					
 					<div id="new_comment_div"></div>
-					<a href="javascript:" class="btn" id="product-coment-btn" onclick="newCommnet('${product.id}');">写评论</a>	
+					<a href="javascript:" class="btn" id="product-coment-btn" onclick="newComment('${product.id}');">写评论</a>	
 				</div>		
 				
 			</div>

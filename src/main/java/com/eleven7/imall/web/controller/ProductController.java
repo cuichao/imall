@@ -117,7 +117,7 @@ public class ProductController implements ServletContextAware{
 		}
 		if(CollectionUtils.isNotEmpty(pdList))
 		{
-			this.productService.saveProductDetailList(pdList);
+			this.productService.saveOrUpdateProductDetailList(pdList);
 		}
 		return "redirect:/product/" + p.getId() + "/show";
 	}
@@ -157,11 +157,17 @@ public class ProductController implements ServletContextAware{
 			Userinfo ui = this.userService.getUserById(pc.getUserid());
 			pc.setUser(ui);
 		}
+		int totalCount = 0;
+		for(ProductDetail pd : pdList)
+		{
+			totalCount += pd.getCount();
+		}
 		p.setPdList(pdList);
 		ModelAndView view = new ModelAndView();
 		view.setViewName("product/show");
 		view.addObject("product",p);
 		view.addObject("commentList", pcList);
+		view.addObject("product_count", totalCount);
 		return view;
 	}
 	@RequestMapping(value = "{productId}/savecomment",method = RequestMethod.POST)

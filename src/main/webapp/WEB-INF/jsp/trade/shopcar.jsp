@@ -29,7 +29,7 @@
 					</c:if>
 					<c:if test="${dto_size > 0 }">
 						<c:forEach items="${pdDtoList}" var="dto">
-							<tr>
+							<tr id="${dto.detail.id}_tr">
 								<td class="cart-title">
 									<!--product begin-->
 									<div>
@@ -45,6 +45,7 @@
 								<input type="text" id="${dto.detail.id}_count" value="${dto.count}"
 									onblur="setCount('${dto.detail.id}_count');" size="3">
 								<a href="javascript:subCount('${dto.detail.id}_count')">--</a>
+								<a href="javascript:delProductdetail('${dto.detail.id}');">删除</a>
 								</td>
 
 							</tr>

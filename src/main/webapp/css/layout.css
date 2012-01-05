@@ -67,7 +67,7 @@ a{ text-decoration:none;  }
 .comment-con-lab{ width:80px; text-align:right; vertical-align:top; }
 .comment-checkcode{ width:80px; text-align:right; height:32px; }
 .comment-checkcode-ipt input{ vertical-align:middle; height:20px; }
-.comment-checkcode-ipt span,.comment-checkcode-ipt img{ vertical-align:middle; display:inline-block; }
+.comment-checkcode-ipt span,.comment-checkcode-ipt img{ vertical-align:middle; }
 #new_comment_div{ margin-top:12px; }
 .comment-content{ line-height22px; }
 .coment-con-area{ width:512px; height:60px; }
@@ -127,5 +127,6 @@ a{ text-decoration:none;  }
 .order-productlist td{ padding:6px 2px; }
 .order-product-title{ padding:10px 0 0 12px; }
 
+.disabled{background:gray;}
 
-
+#captcha_img .none{display:none;}

@@ -76,7 +76,7 @@ public class ProductServiceImpl implements IProductService{
 	{
 		return this.productDao.findAll(pb);
 	}
-	public void saveProductDetailList(List<ProductDetail> list)
+	public void saveOrUpdateProductDetailList(List<ProductDetail> list)
 	{
 		this.productdetailDao.saveOrUpdateAll(list);
 	}

@@ -111,14 +111,35 @@ public class TradeController {
 		ModelAndView view = new ModelAndView();
 		view.setViewName("/trade/pay");
 		List<ProductDetailDto> pddList = this.getProductDetailDtoListFromCookie(request);
+		List<ProductDetailDto> notEnoughList = new ArrayList<ProductDetailDto>();
+		if(!isPdCountEnough(pddList,notEnoughList))
+		{
+			view.setViewName("/trade/error");
+			view.addObject("pdDtoList", notEnoughList);
+			return view;
+		}
 		Userinfo ui = SpringSecurityUtils.getCurrentUser();
 		Ordering order = this.getOrderAndUpdateAddressByParams(orderDto, pddList, ui);
 		this.orderService.saveOrUpdateOrder(order);
 		this.orderService.saveOrderDetailList(this.getOrderdetailList(order, pddList));
+		//更新 product detail count
+		this.updateProductDetailCount(pddList);
 		this.removeProductFromCookie(response);
 		view.addObject("order", order);
 		return view;
 		
+	}
+	private void updateProductDetailCount(List<ProductDetailDto> pddList)
+	{
+		List<ProductDetail> pdList = new ArrayList<ProductDetail>();
+		for(ProductDetailDto dto : pddList)
+		{
+			int leftCount = dto.getDetail().getCount() - dto.getCount();
+			leftCount = leftCount > 0 ? leftCount : 0;
+			dto.getDetail().setCount(leftCount);
+			pdList.add(dto.getDetail());
+		}
+		this.productService.saveOrUpdateProductDetailList(pdList);
 	}
 	@RequestMapping(value = "/trade/{orderid}/order",method = RequestMethod.GET)
 	public ModelAndView OrderDetails(@PathVariable("orderid") Integer orderid)
@@ -312,6 +333,20 @@ public class TradeController {
 		order.setTotalpay(totalMoney);		
 		return order;
 	}
+	private boolean isPdCountEnough(List<ProductDetailDto> pddList,List<ProductDetailDto> notEnoughList)
+	{
+		boolean bEnough = true;
+		for(ProductDetailDto dto : pddList)
+		{
+			int limitCount = dto.getDetail().getCount();
+			if(dto.getCount() > limitCount)
+			{
+				notEnoughList.add(dto);
+				bEnough = false;
+			}
+		}
+		return bEnough;
+	}
 	private List<ProductDetailDto> getProductDetailDtoListFromCookie(HttpServletRequest request)
 	{
 		List<ProductDetailDto> pddList = new ArrayList<ProductDetailDto>();
@@ -353,7 +388,6 @@ public class TradeController {
 			}
 		}
 		return pddList;
-		
 	}
 	
 	private void removeProductFromCookie(HttpServletResponse response)
