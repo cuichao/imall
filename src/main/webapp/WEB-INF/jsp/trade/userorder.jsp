@@ -6,9 +6,9 @@
 <head>
 <title>我的订单</title>
 </head>
-<body>
+<body class="bg-c-base">
 	<div>
-		<table style="width: 100%;" border="1">
+		<table class="base-table">
 			<tr>
 				<th>订单号</th>
 				<th>收货人</th>

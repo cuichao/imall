@@ -14,8 +14,15 @@ a{ text-decoration:none;  }
 .triangle{ width:17px; height:9px; overflow:hidden; font-size:12px}
 .mr20{ margin-right:20px; }
 .hr12{ height:12px; visibility:hidden; border:none; margin:0; }
+
+/*table*/
+.base-table{ width:98%; }
+.base-table th,.base-table td{ padding:5px 10px; font-size:13px; }
+.base-table th{ background:#369; color:#fff; border:1px solid #113B63; }
+.base-table td{ border:1px solid #a1b990; color:#292b27; }
+.bg-c-base{ background:#F7F7F7}
 /* layout*/
-.container{ width:960px; margin:0 auto}
+.container{ width:960px; margin:0 auto;}
 
 /*-----------------------------header----------------------------------*/
 .login{ background:#000; text-align:right; height:31px; line-height:31px; }
@@ -128,5 +135,20 @@ a{ text-decoration:none;  }
 .order-product-title{ padding:10px 0 0 12px; }
 
 .disabled{background:gray;}
+
+.pay-successful{ min-height:465px; text-align:center; }
+
+/*-----------------------------个人中心----------------------------------*/
+#leftFrame{ width:19%; max-width:180px; overflow:hidden; margin-right:5px; box-shadow:2px 7px 12px 0 rgba(161,185,144,.6); }
+#rightFrame{ width:78%; padding:0 12px 0 6px; } 
+
+.manage-nav{ width:100%; height:100%; background:#F7F7F7;}
+.manage-nav h3{ font: 18px/22px  "微软雅黑";  padding-left:12px; margin:0 0 6px 0;}
+.manage-nav ul li a{ font: 15px/22px arial; display:inline-block;  padding-left:24px; color:#370; }
+
+/*收货地址簿*/
+#show_address_div h3{ font: normal 18px/22px "微软雅黑"; margin-bottom:6px; padding-bottom:6px; border-bottom: 1px solid #C6C6C6;}
+#old_address_div{ margin-bottom:12px; }
+#show_address_div ul li{ line-height:22px; font-size:15px; }
 
 #captcha_img .none{display:none;}

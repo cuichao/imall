@@ -67,7 +67,7 @@ a:hover{ text-decoration:underline}
 .w600{width:600px;}
 .w700{width:700px;}
 .w800{width:800px;}
-.w{width:100%:}
+.w{width:100%!important; }
 .h50{height:50px:}
 .h80{height:80px:}
 .h100{height:100px:}

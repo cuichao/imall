@@ -6,8 +6,8 @@
 <head>
 <title>支付历史</title>
 </head>
-<body>
-	<table style="width: 100%;" border="1">
+<body class="bg-c-base">
+	<table  class="base-table">
 		<tr>
 			<th>时间</th>
 			<th>金额</th>

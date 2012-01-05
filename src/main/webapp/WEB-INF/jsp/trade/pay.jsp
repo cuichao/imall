@@ -6,10 +6,15 @@
 <title>支付订单</title>
 </head>
 <body>
-	<%@ include file="../header.jsp"%>
+<%@ include file="../header.jsp"%>
+<div id="main">
+	<div class="container clearfix">
+	<div class="pay-successful">
 	订单${order.id}已提交，您总共需要支付<span class="red">￥${order.totalpay}</span>
 	<a href="">查看订单</a>
-		
-	<%@ include file="../footer.jsp"%>
+	</div>
+	</div>
+</div>
+<%@ include file="../footer.jsp"%>
 </body>
 </html>

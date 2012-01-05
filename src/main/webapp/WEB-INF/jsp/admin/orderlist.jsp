@@ -16,9 +16,9 @@
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/js/order.js"></script>
 </head>
-<body>
+<body class="bg-c-base">
 	<div>
-		<table style="width: 100%;" border="1">
+		<table class="base-table">
 			<tr>
 				<th>订单号</th>
 				<th>订单提交人</th>

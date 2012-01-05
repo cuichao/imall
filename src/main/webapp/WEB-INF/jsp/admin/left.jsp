@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
-<div>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/reset.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/layout.css">
+<div class="manage-nav">
 <h3>订单管理</h3>
 <ul>
 <li><a href="${imall_path}../back/trade/tosendlist" target="rightFrame">待发货的订单</a></li>
