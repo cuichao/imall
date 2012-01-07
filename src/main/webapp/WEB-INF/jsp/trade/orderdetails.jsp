@@ -6,56 +6,59 @@
 <head>
 <title>订单详情</title>
 </head>
-<body>
+<body class="bg-c-base">
 	<div id="main">
-		<div class="container clearfix">
+		<div id="show_address_div">
 	   <!-- begin 收货人信息 -->
+	   
 		<div>
-			<h2>
-			<b>收货人信息：</b>
-			</h2>
-			<div>${order.accepter} &nbsp;&nbsp;${order.toAddress}
+			<h3>收货人信息：</h3>
+			<div> 
+				<ul>
+					<li>姓名：<span>${order.accepter}</span></li>
+					<li>地址：<span>${order.toAddress}</span></li>
+					<li>邮编：<span> </span></li>			
+					<li>手机：<span> </span></li>
+					<li>固话：<span> </span></li>
+				</ul>
 			</div>
 		</div>
+		<hr class="hr12" />
 		<!-- end 收货人信息 -->
 		<!-- begin 送货方式 -->
 		<div>
-			<h2>
-				<b>送货方式 :</b>
-			</h2>		
+			<h3>送货方式 :</h3>		
 				<div>
 					<c:if test="${order.sendType == 1}">
-	   普通快递送货上门
-	 </c:if> <c:if test="${order.sendType == 2}">
-	   加急快递送货上门
-	 </c:if> &nbsp;<c:if test="${order.timeType ==  'WEEK_1_TO_5' }">
-	  周一到周五
-	 </c:if> <c:if test="${order.timeType ==  'NO_TIME_LIMIT' }">
-	  无时间限制
-	 </c:if> <c:if test="${order.timeType ==  'WEEKDAY_AND_OTHER'}">
-	  周六日以及法定假日
-	 </c:if>
+					   普通快递送货上门
+					 </c:if> <c:if test="${order.sendType == 2}">
+					   加急快递送货上门
+					 </c:if> &nbsp;<c:if test="${order.timeType ==  'WEEK_1_TO_5' }">
+					  周一到周五
+					 </c:if> <c:if test="${order.timeType ==  'NO_TIME_LIMIT' }">
+					  无时间限制
+					 </c:if> <c:if test="${order.timeType ==  'WEEKDAY_AND_OTHER'}">
+					  周六日以及法定假日
+					 </c:if>
 				</div>
 		</div>
+		<hr class="hr12" />
 		<!-- end 送货方式 -->
 		<!-- begin 付款方式 -->
 		<div>
-			<h2>
-				<b>付款方式 :</b>
-			</h2>
+			<h3>付款方式 :</h3>
 			<div>
 			<c:if test="${order.payType == 'PAY_ONLINE' }">
-	 网上支付
-	 </c:if> <c:if test="${order.payType == 'PAY_AFTER_PRODUCT_ARRIVED'}">
-	 货到付款
-	 </c:if>
+			 网上支付
+			 </c:if> <c:if test="${order.payType == 'PAY_AFTER_PRODUCT_ARRIVED'}">
+			 货到付款
+			 </c:if>
 			</div>
 		</div>
 		<!-- end 付款方式 -->
 		<!-- begin 商品清单-->
-		<h2>
-			<b>商品清单：</b>
-		</h2>
+		<hr class="hr12" />
+		<h3>商品清单：</h3>
 		<div class="order-productlist">
 			<c:set var="dto_size" value="${fn:length(order.odList)}" />
 			<table id="shopcarTable">
@@ -74,9 +77,7 @@
 										src="${imall_path}${dto.productDetail.picturePath}" alt="说明"
 										title="说明" class="img_small_size" /> </a>
 									<div class="list-content fl order-product-title">
-										<h3>
 											<a href="${imall_path}product/${dto.product.id}/show">${dto.product.name}</a>
-										</h3>
 									</div>
 								<!--product end--></td>
 							<td>￥<span name="price" id="${dto.productDetail.id}_price"
