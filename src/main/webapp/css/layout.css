@@ -18,7 +18,7 @@ a{ text-decoration:none;  }
 .hr12{ height:12px; visibility:hidden; border:none; margin:0; }
 
 /*table*/
-.base-table{ width:98%; }
+.base-table{ width:98%; } 
 .base-table th,.base-table td{ padding:5px 10px; font-size:13px; }
 .base-table th{ background:#369; color:#fff; border:1px solid #113B63; }
 .base-table td{ border:1px solid #a1b990; color:#292b27; }
