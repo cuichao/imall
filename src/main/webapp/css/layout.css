@@ -10,7 +10,9 @@ body{ background:#cfcfcf}
 a{ text-decoration:none;  }
 .fl{ float:left}
 .fr{ float:right}
-.btn{ padding:5px 16px; border:none; cursor:pointer; font-size:16px; color:#f7f7f7; background:#699611; font-family:"微软雅黑","arial";}
+.btn{ padding:5px 16px; border:none; cursor:pointer; font-size:16px; color:#f7f7f7; background:#699611; box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 1px 0 rgba(0,0,0,.15);font-family:"微软雅黑","arial";}
+.btn:hover{ color:#fff; text-decoration:none; text-shadow:0 1px 0 rgba(255, 255, 255, .3); }
+.btn:active { box-shadow: 0 1px 1px rgba(0,0,0,.3) inset;}
 .triangle{ width:17px; height:9px; overflow:hidden; font-size:12px}
 .mr20{ margin-right:20px; }
 .hr12{ height:12px; visibility:hidden; border:none; margin:0; }
@@ -26,12 +28,15 @@ a{ text-decoration:none;  }
 
 /*-----------------------------header----------------------------------*/
 .login{ background:#000; text-align:right; height:31px; line-height:31px; }
-.login a{ display:inline-block; color:#9b8f8f; padding:0 8px}
+.login .container{ color:#9b8f8f; }
+.login a{ display:inline-block; color:#9b8f8f; padding:0 8px;}
+.login a:hover{ text-decoration:none; color:#E0E0E0; }
 #header{ height:84px; background:url('../images/header-bg.png') repeat-x; box-shadow: 0px 0px 5px 0px #959595}
 #header .container{ height:84px; background:url('../images/header-nav.png')  right 0 no-repeat; }
 .logo{ display:inline-block; margin:22px 0 0 14px; float:left}
 .header-nav { float:right;  margin-top:42px; width:398px; }
-.header-nav a{ font-family:tahoma; padding:0 13px; display:inline-block; font-size:18px; color:#ddeac3}
+.header-nav a{ font-family:tahoma; padding:0 13px; text-shadow:rgba(66, 24, 24, 0.7) 0px 1px 3px;display:inline-block; font-size:18px; color:#ddeac3}
+.header-nav a:hover{text-decoration:none; color:#F8F8F8; }
 .search{ float:right;  width:130px; border:1px solid #5f8b02; }
 .search input{ width:105px; height:22px; line-height:22px; float:left; color:#1a1e11; border:none;outline:none; background:#cfcfcf;}
 .header-nav .search-btn{ width:25px; height:22px; float:right; padding:0;  background:url('../images/search-btn.png') #cfcfcf center center no-repeat}
@@ -43,15 +48,17 @@ a{ text-decoration:none;  }
 
 /*-----------------------------list----------------------------------*/
 .list{ padding:12px 43px 26px 43px; position:relative; height:150px;background:url('../images/product-list-shadow.png') left 175px no-repeat; }
-.list-img{ border:1px solid #dcdcdc; display:inline-block}
+.list-img{ border:1px solid #dcdcdc; display:inline-block; width:147px; heihgt:147px; }
 .list-content{ padding:6px 0 14px 15px; width:480px; }
 .list-content h3 a{ font-size:24px; color:#608f02}
 .list-content h3 span{ font-size:10px; color:#699611; margin-left:8px}
 .list-content p{ color:#4c4c4c; line-height:18px; padding:3px 0 16px 0}
-.list-content .btn{ position:absolute; right:43px; bottom:26px}
+.list-content .btn{ position:absolute; right:43px; bottom:26px; }
+
 
 /*-----------------------------page----------------------------------*/
-.page{ text-align:right; margin-right:50px}
+.page{ text-align:right; margin-right:50px; }
+.page table{ font-size:12px; }
 .page a{ color:#72962C; }
 .page td{display:inline-block; padding:3px 7px; color:#808080}
 
@@ -64,7 +71,7 @@ a{ text-decoration:none;  }
 .product-title{ background: #ccdab2; margin:0 43px 0 26px}
 .product-title span{ display:inline-block; width:37px; margin-right:9px; padding-left:8px; height:29px; line-height:29px; font-size:18px; color:#fff; background:url('../images/triangle.png') right 0 #699611 no-repeat; }
 .product-title  h3{ height:29px; line-height:29px; font-size:14px; color:#4b6b0d; background:url('../images/b-triangle.png') right 11px no-repeat;}
-.product-detail{ margin:0 0 0 72px; width:616px}
+.product-detail{ margin:0 0 0 72px; width:612px; overflow:hidden; }
 .product-detail p{ line-height:22px; padding:15px 0; color:#4c4c4c}
 .product-info{  line-height:22px; padding:15px 0;}
 .product-info span{ display:inline-block; color:#4c4c4c; padding-right:25px; }
@@ -132,6 +139,7 @@ a{ text-decoration:none;  }
 .order-productlist{ padding:12px; }
 .order-productlist th{ border-bottom:1px solid #446702; line-height:32px; }
 .order-productlist td{ padding:6px 2px; }
+.order-productlist td a{ color:#370; }
 .order-product-title{ padding:10px 0 0 12px; }
 
 .disabled{background:gray;}
