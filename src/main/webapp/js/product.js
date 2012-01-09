@@ -51,19 +51,20 @@
 		
 	};
 	addProduct2Cookie = function()
-	{
+	{	
 		var count = $("#count").val();
 		if(count == "")
 		{
 			count = 1;
 		}
+		count = parseInt(count);
 		var pd_id = $("#select_pd").val();
 		if(pd_id == "")
 		{
 			alert("请选择颜色!");
 			return false;
 		}
-		var num_limit = $("#count_" + pd_id).val();
+		var num_limit = parseInt($("#count_" + pd_id).val());
 		if(count > num_limit)
 		{
 			alert("对不起，该商品只剩"+num_limit + "件了，请重新选择数量！");

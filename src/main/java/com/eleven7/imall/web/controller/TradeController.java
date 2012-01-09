@@ -90,6 +90,13 @@ public class TradeController {
 		ModelAndView view = new ModelAndView();
 		view.setViewName("/trade/order");
 		List<ProductDetailDto> pddList = this.getProductDetailDtoListFromCookie(request);
+		List<ProductDetailDto> notEnoughList = new ArrayList<ProductDetailDto>();
+		if(!isPdCountEnough(pddList,notEnoughList))
+		{
+			view.setViewName("/trade/error");
+			view.addObject("pdDtoList", notEnoughList);
+			return view;
+		}
 		double totalMoney = 0.0;
 		for(ProductDetailDto pdd : pddList)
 		{

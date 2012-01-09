@@ -11,7 +11,6 @@
 </style>
 </head>
 <body>
-<%@ include file="../header.jsp"%>
 	<div id="main">
 		<div class="container clearfix">
 			<div style="padding:0 6px;">
@@ -46,5 +45,5 @@
 			</div>
 		</div>
 	</div>
-<%@ include file="../footer.jsp"%>
+</body>
 </html>

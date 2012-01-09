@@ -196,6 +196,7 @@ public class ProductController implements ServletContextAware{
 		view.addObject("product",p);
 		view.addObject("commentList", pcList);
 		view.addObject("product_count", totalCount);
+		view.addObject("advertiseFiles",getAdvertiseFileNames());
 		return view;
 	}
 	@RequestMapping(value = "{productId}/savecomment",method = RequestMethod.POST)

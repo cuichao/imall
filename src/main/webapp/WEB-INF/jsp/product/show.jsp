@@ -14,7 +14,7 @@
 		<div class="container clearfix">
 			<!--aside begin-->
 			<div class="aside">
-				<a href="javascript:"><img src="${imall_path}images/aside.png"
+				<a href="javascript:"><img id="advertise_img" class="aside_size"
 					alt="图片说明" /> </a>
 			</div>
 			<!--header end-->
@@ -64,9 +64,8 @@
 							<input class="btn disabled" type="button" value="我要购买" disabled>
                             </c:if>
                             <c:if test="${product_count != 0}">
-                             <input type="text" id="count" name="count" value="1" /> <a
-								class="btn" href="${imall_path}mycar"
-								onclick="return addProduct2Cookie();">我要购买</a>
+                             <input type="text" id="count" name="count" value="1" /> 
+                             <a class="btn" href="${imall_path}mycar" onclick="return addProduct2Cookie();">我要购买</a>
 							</c:if>
 						</div>
 					</div>
@@ -103,4 +102,50 @@
 
 	<%@ include file="../footer.jsp"%>
 </body>
+<script>
+<%
+  String[] advertises = (String[])request.getAttribute("advertiseFiles");
+  String advertisements = "";
+  for(String filename : advertises)
+  {
+	  advertisements += filename + ",";
+  }
+  if(!advertisements.equals(""))
+  {
+	  advertisements = advertisements.substring(0,advertisements.length()-1);
+  }
+%>
+var index = 0;
+var advertisement_imgs = "<%=advertisements%>";
+var advertise_array = advertisement_imgs.split(",");
+var count = advertise_array.length;
+if(advertisement_imgs == "")
+{
+	count = 0;	
+}
+if(count == 0)
+{
+	$("#advertise_img").attr("src","${imall_path}images/aside.png");
+}
+else
+{
+	index ++;
+	$("#advertise_img").attr("src",basePath + "/upload/advertise/" + advertise_array[0]);
+	setInterval("changeAdvertisement()",3000);
+		
+};
+function changeAdvertisement()
+{
+	if(count > 0)
+	{
+		if(index >= count)
+		{
+			index = 0;
+		}
+		$("#advertise_img").attr("src",basePath + "/upload/advertise/" + advertise_array[index]);
+		index ++;
+		
+	}
+}
+</script>
 </html>
