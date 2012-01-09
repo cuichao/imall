@@ -304,6 +304,7 @@
       <attribute value="jar:file:/C:/Documents%20and%20Settings/Administrator/.m2/repository/org/apache/lucene/lucene-core/2.3.2/lucene-core-2.3.2-javadoc.jar!/" name="javadoc_location"/>
     </attributes>
   </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/org/apache/lucene/lucene-highlighter/2.4.1/lucene-highlighter-2.4.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/mockito/mockito-core/1.8.5/mockito-core-1.8.5.jar" sourcepath="M2_REPO/org/mockito/mockito-core/1.8.5/mockito-core-1.8.5-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/mysql/mysql-connector-java/5.1.6/mysql-connector-java-5.1.6.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/apache/neethi/neethi/2.0.4/neethi-2.0.4.jar" sourcepath="M2_REPO/org/apache/neethi/neethi/2.0.4/neethi-2.0.4-sources.jar"/>

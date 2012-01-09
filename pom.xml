@@ -250,6 +250,13 @@
 		<scope>compile</scope>
 	</dependency>
 	<dependency>
+		<groupId>org.apache.lucene</groupId>
+		<artifactId>lucene-highlighter</artifactId>
+		<version>2.4.1</version><!-- to be update -->
+		<type>jar</type>
+		<scope>compile</scope>
+	</dependency>
+	<dependency>
 		<groupId>commons-fileupload</groupId>
 		<artifactId>commons-fileupload</artifactId>
 		<version>1.2.1</version>

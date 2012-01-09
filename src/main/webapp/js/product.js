@@ -37,7 +37,18 @@
 	};
 	jumpPage = function(pageNo)
 	{
-		this.location.href = basePath +"/product/list?page="+pageNo;
+		var query = $.trim($("#query_text").val());
+		if(query != undefined && query != "")
+		{
+			this.location.href = basePath +"/product/list?page="+pageNo + "&query="+query;
+		}
+		else
+		{
+			this.location.href = basePath +"/product/list?page="+pageNo;
+		}
+		
+		
+		
 	};
 	addProduct2Cookie = function()
 	{

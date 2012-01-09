@@ -139,7 +139,7 @@ a{ text-decoration:none;  }
 .pay-successful{ min-height:465px; text-align:center; }
 
 /*-----------------------------个人中心----------------------------------*/
-#leftFrame{ width:19%; max-width:180px; overflow:hidden; margin-right:5px; box-shadow:2px 7px 12px 0 rgba(161,185,144,.6); }
+#leftFrame{ width:18%; max-width:180px; overflow:hidden; margin-right:5px; box-shadow:2px 7px 12px 0 rgba(161,185,144,.6); }
 #rightFrame{ width:78%; padding:0 12px 0 6px; } 
 
 .manage-nav{ width:100%; height:100%; background:#F7F7F7;}
@@ -152,3 +152,4 @@ a{ text-decoration:none;  }
 #show_address_div ul li{ line-height:22px; font-size:15px; }
 
 #captcha_img .none{display:none;}
+.aside_size{ width:210px; height:422px; }

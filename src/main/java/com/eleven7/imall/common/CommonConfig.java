@@ -52,6 +52,15 @@ public class CommonConfig {
             return currentClassPath;
         }
     }
+    public static String getWebRootPath() {
+        String currentClassPath = Thread.currentThread().getContextClassLoader().getResource("").getPath()+"/../../";
+
+        try {
+            return URLDecoder.decode(currentClassPath, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return currentClassPath;
+        }
+    }
     
     /**
      * 载入配置 在配置文件夹下的所有配置文件都要重新加载

@@ -20,13 +20,13 @@
 						<tr>
 							<td>
 								<!--product begin-->
-									<a class="list-img fl"
+									<a class="list-img fl" target="_blank"
 										href="${imall_path}product/${dto.product.id}/show"> <img
 										src="${imall_path}${dto.productDetail.picturePath}" alt="说明"
 										title="说明" class="img_small_size" /> </a>
 									<div class="list-content fl order-product-title">
 										<h3>
-											<a href="${imall_path}product/${dto.product.id}/show">${dto.product.name}</a>
+											<a target="_blank" href="${imall_path}product/${dto.product.id}/show">${dto.product.name}</a>
 										</h3>
 									</div>
 								<!--product end--></td>

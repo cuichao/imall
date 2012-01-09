@@ -10,6 +10,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ import com.eleven7.imall.bean.Userinfo;
 import com.eleven7.imall.constant.Constant;
 import com.eleven7.imall.dao.base.PageBean;
 import com.eleven7.imall.security.SpringSecurityUtils;
-import com.eleven7.imall.security.SpringSecurityUtils;
+import com.eleven7.imall.service.ILuceneService;
 import com.eleven7.imall.service.IProductService;
 import com.eleven7.imall.service.IUserService;
 import com.eleven7.imall.web.dto.ProductDto;
@@ -54,6 +55,17 @@ public class ProductController implements ServletContextAware{
 	@Autowired
 	private IProductService productService;
 	
+	@Autowired
+	private ILuceneService indexService;
+	
+	public ILuceneService getIndexService() {
+		return indexService;
+	}
+
+	public void setIndexService(ILuceneService indexService) {
+		this.indexService = indexService;
+	}
+
 	public IUserService getUserService() {
 		return userService;
 	}
@@ -119,10 +131,11 @@ public class ProductController implements ServletContextAware{
 		{
 			this.productService.saveOrUpdateProductDetailList(pdList);
 		}
+		this.indexService.buildProductIndex(p);
 		return "redirect:/product/" + p.getId() + "/show";
 	}
 	@RequestMapping(value = "/list",method = RequestMethod.GET)
-	public ModelAndView showList(@RequestParam(value = "page",required=false)Integer page)
+	public ModelAndView showList(@RequestParam(value = "page",required=false)Integer page,@RequestParam(value = "query",required=false)String query)
 	{
 		if(page == null)
 		{
@@ -132,7 +145,16 @@ public class ProductController implements ServletContextAware{
 		pb.setPage(page);
 		pb.setSize(PageBean.MIN_PAGESIZE);
 		pb.addDescOrder("id");
-		List<Product> pList = this.productService.getList(pb);
+		List<Product> pList  = new ArrayList<Product>();
+		if(!StringUtils.isEmpty(query))
+		{
+			pList = this.indexService.queryProduct(query, pb);
+		}
+		else
+		{
+			pList = this.productService.getList(pb);
+		}
+		
 		for(Product p : pList)
 		{
 			List<ProductDetail> pdList = this.productService.getProudctDetailList(p.getId());
@@ -143,6 +165,12 @@ public class ProductController implements ServletContextAware{
 		view.setViewName("product/list");
 		view.addObject("page", pb);
 		view.addObject("productList",pList);
+		view.addObject("advertiseFiles",getAdvertiseFileNames());
+		if(StringUtils.isEmpty(query))
+		{
+			query = "";
+		}
+		view.addObject("query",query);
 		return view;
 	}
 	
@@ -224,6 +252,16 @@ public class ProductController implements ServletContextAware{
 			dir.mkdirs();
 		}
 		return path;
+	}
+	private String[] getAdvertiseFileNames()
+	{
+		String path = this.servletContext.getRealPath("/" + Constant.UPLOAD_ADVERTISE_PATH)+"/";
+		File dir = new File(path);
+		if(!dir.exists())
+		{
+			dir.mkdirs();
+		}
+		return dir.list();
 	}
 	
 	

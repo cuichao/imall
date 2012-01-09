@@ -4,6 +4,7 @@
 	String nickname = SpringSecurityUtils.getCurrentNickName();
 	boolean bAdmin = SpringSecurityUtils.hasAnyRole("ADMIN_USER");
 %>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/header.js"></script>
 <!--header begin-->
 <div class="login">
 	<div class="container">
@@ -36,7 +37,7 @@
 	<div class="container"> 
 		<div class="header-nav"> 
 			<div class="search">
-				<input type="text" /><a href="#" class="search-btn"></a>
+				<input type="text" id="query_text" value="${query}" onkeydown="enter2Search(event);"/><a href='javascript:searchProduct();' class="search-btn"></a>
 			</div>
 			<a href="${imall_path}">Index</a><a href="${imall_path}">Products</a><a href="#">About</a>
 		</div>
