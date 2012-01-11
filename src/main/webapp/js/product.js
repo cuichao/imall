@@ -5,15 +5,13 @@
 		 var table = $("#createTable");
 		 var tr = $('<tr></tr>');
          var td = $('<td></td>');
-         td.html("颜色:<input type='text' id='color"+index+"' name='color"+index + "'>");
          tr.append(td);
-         var td = $('<td></td>');
-         td.html("图片:<input type='file' id='pic" +index +"' name='pic"+index +"'>");
+		 var td = $('<td></td>');
+         td.html("数量:<input type='text' id='count" +index +"' name='count"+index +"'>"+"颜色:<input type='text' id='color"+index+"' name='color"+index + "'>"+"图片:<input type='file' id='pic" +index +"' name='pic"+index +"'>");
          tr.append(td);
          table.append(tr);
          var td = $('<td></td>');
-         td.html("数量:<input type='text' id='count" +index +"' name='count"+index +"'>");
-         tr.append(td);
+         
          table.append(tr);
          $("#pic_index").val(index);
 	};

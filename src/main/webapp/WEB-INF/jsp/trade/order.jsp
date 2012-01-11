@@ -138,7 +138,7 @@
 						<tr>
 							<td>
 								<!--product begin-->
-									<a class="list-img fl"
+									<a class="fl"
 										href="${imall_path}product/${dto.product.id}/show"> <img
 										src="${imall_path}${dto.detail.picturePath}" alt="说明"
 										title="说明" class="img_small_size" /> </a>
