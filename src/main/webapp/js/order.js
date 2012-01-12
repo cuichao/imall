@@ -130,6 +130,22 @@
 	    });	 
 		
 	};
+	selectBank2Pay = function(bankElement)
+	{
+		var bank = "bank=" + $(bankElement).attr("id");
+		var order = $("#orderid").val();
+		var url = basePath + "/trade/" + order + "/pay";
+		$.ajax({ 
+	          type : "POST",
+	          url  :  url,
+	          data :  bank,
+	          success : function(data){
+	        	 alert("haha");
+	        	 $("#main").html(data);
+	          }
+	    });	 
+	};
+	
 	
 	
 	

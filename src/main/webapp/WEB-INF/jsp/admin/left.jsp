@@ -29,4 +29,11 @@
 			</li>
 		</ul>
 	</div>
+	<div>
+		<h3>广告管理</h3>
+		<ul>
+			<li><a href="${imall_path}../advertise/create" target="rightFrame">添加广告</a>
+			</li>
+		</ul>
+	</div>
 </div>

@@ -39,7 +39,7 @@
 			<div class="search">
 				<input type="text" id="query_text" value="${query}" onkeydown="enter2Search(event);"/><a href='javascript:searchProduct();' class="search-btn"></a>
 			</div>
-			<a href="${imall_path}">Index</a><a href="${imall_path}">Products</a><a href="#">About</a>
+			<a href="${imall_path}">Index</a><a href="${imall_path}product/list">Products</a><a href="#">About</a>
 		</div>
 		<a href="${imall_path}" class="logo"><img src="${imall_path}images/logo.png" alt="opena" title="opena" /></a>
 	</div>

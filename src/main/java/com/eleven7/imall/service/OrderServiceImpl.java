@@ -95,7 +95,7 @@ public class OrderServiceImpl implements IOrderService{
 		return this.orderDao.findByProperty(pb,"userid" ,userid);
 	}
 	
-	public void saveOrUpdate(OrderPayment op)
+	public void saveOrUpdateOrderPayment(OrderPayment op)
 	{
 	 this.orderPaymentDao.saveOrUpdate(op);
 	}

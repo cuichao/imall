@@ -22,7 +22,7 @@ public interface IOrderService {
 	public List<Ordering> getOrderListByUser(Integer userid,PageBean pb);
 	
 	//order payment
-	public void saveOrUpdate(OrderPayment op);
+	public void saveOrUpdateOrderPayment(OrderPayment op);
 	public List<OrderPayment> getOrderPaymentListByUser(Integer userid,PageBean pb);
 	
 	public List<OrderDetail> getOrderDetailListByUser(Integer userid,PageBean pb);

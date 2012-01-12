@@ -19,6 +19,7 @@ import javax.persistence.Transient;
 @Table(name = "ordering")
 public class Ordering {
 
+	//ALTER TABLE ordering AUTO_INCREMENT=1000001,创建表时指定订单号从1000001开始
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(unique = true, nullable = false)

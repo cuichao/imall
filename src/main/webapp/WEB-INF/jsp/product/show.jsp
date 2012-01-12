@@ -14,7 +14,7 @@
 		<div class="container clearfix">
 			<!--aside begin-->
 			<div class="aside">
-				<a href="javascript:"><img id="advertise_img" class="aside_size"
+			<a id="advertise_a" href="javascript:void(0);"><img id="advertise_img" class="aside_size"
 					alt="图片说明" /> </a>
 			</div>
 			<!--header end-->
@@ -103,26 +103,16 @@
 	<%@ include file="../footer.jsp"%>
 </body>
 <script>
-<%
-  String[] advertises = (String[])request.getAttribute("advertiseFiles");
-  String advertisements = "";
-  for(String filename : advertises)
-  {
-	  advertisements += filename + ",";
-  }
-  if(!advertisements.equals(""))
-  {
-	  advertisements = advertisements.substring(0,advertisements.length()-1);
-  }
-%>
+var adUrl = new Array();
+var adPic = new Array();
+<c:set var="idx" value="0"/>
+<c:forEach items="${advertiseList}" var="ad">
+	adUrl[${idx}]="${ad.url}";
+	adPic[${idx}]="${ad.picturePath}";
+	<c:set var="idx" value="${idx + 1}"/>
+</c:forEach>
 var index = 0;
-var advertisement_imgs = "<%=advertisements%>";
-var advertise_array = advertisement_imgs.split(",");
-var count = advertise_array.length;
-if(advertisement_imgs == "")
-{
-	count = 0;	
-}
+var count = adUrl.length;
 if(count == 0)
 {
 	$("#advertise_img").attr("src","${imall_path}images/aside.png");
@@ -130,7 +120,8 @@ if(count == 0)
 else
 {
 	index ++;
-	$("#advertise_img").attr("src",basePath + "/upload/advertise/" + advertise_array[0]);
+	$("#advertise_img").attr("src",basePath + "/" + adPic[0]);
+	$("#advertise_a").attr("href",adUrl[0]);
 	setInterval("changeAdvertisement()",3000);
 		
 };
@@ -142,7 +133,8 @@ function changeAdvertisement()
 		{
 			index = 0;
 		}
-		$("#advertise_img").attr("src",basePath + "/upload/advertise/" + advertise_array[index]);
+		$("#advertise_img").attr("src",basePath + "/" + adPic[index]);
+		$("#advertise_a").attr("href",adUrl[index]);
 		index ++;
 		
 	}
