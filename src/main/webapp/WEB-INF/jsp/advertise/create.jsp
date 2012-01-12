@@ -5,14 +5,14 @@
 <head>
 <style type="text/css">
 #createTable td {
-	padding: 1px;
+	padding: 3px;
 }
 </style>
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/js/advertise.js"></script>
 </head>
 <body>
-	<div id="main">
+	<div id="main" class="admin-main">
 		<div class="container clearfix">
 			<div style="padding: 0 6px;">
 				<h2 style="text-align: center; font-size: 25px; line-height: 38px;">添加广告</h2>
@@ -20,8 +20,8 @@
 					enctype="multipart/form-data">
 					<table id="createTable">
 						<tr>
-							<td>广告url(如果是本平台商品，可直接输入商品ID)</td>
-							<td><input type="text" id="url1" name="url1">
+							<td>广告url</td>
+							<td><input type="text" id="url1" name="url1">(如果是本平台商品，可直接输入商品ID)
 							</td>
 						</tr>
 						<tr>

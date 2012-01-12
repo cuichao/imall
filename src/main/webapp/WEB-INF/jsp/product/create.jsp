@@ -11,7 +11,7 @@
 </style>
 </head>
 <body>
-	<div id="main" style="background:#fff; min-height:100%; ">
+	<div id="main" class="admin-main">
 			<div style="padding:0 6px;">
 				<h2 style="text-align:center; font-size:25px; line-height:38px; ">创建商品</h2>
 				<form method="post" action="createSubmit" enctype="multipart/form-data">

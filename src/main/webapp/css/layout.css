@@ -90,7 +90,7 @@ a{ text-decoration:none;  }
 .comment-content{ line-height:22px; width:566px; word-break:break-all; word-wrap:break-word; }
 .product-comment-wrap{ min-height:12px; padding-right:12px; }
 .product-color{ margin-bottom:5px;}
-.product-show-tinyimg{ border:1px solid #F2EFEF; }
+.product-show-tinyimg{ border:1px solid #F2EFEF; cursor:pointer; }
 .product-color .on{ border:1px solid #820909; }
 
 .banner{ text-align:center; padding-bottom:18px}
@@ -165,3 +165,12 @@ a{ text-decoration:none;  }
 
 #captcha_img .none{display:none;}
 .aside_size{ width:210px; height:422px; }
+
+/*-----------------------------admin----------------------------------*/
+.admin-main{ background:#F7F7F7; min-height:100%; }
+
+
+
+
+
+
