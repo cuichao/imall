@@ -21,5 +21,8 @@ public interface IProductService {
 	public List<ProductComment> getCommentList(Integer pid);
 	
 	public List<SendType> getAllSendType();
+	
+	public void deleteProduct(Integer id);
+	public void deleteProductDetailsByProductId(Integer pid);
 
 }

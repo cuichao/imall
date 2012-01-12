@@ -27,6 +27,8 @@
 		<ul>
 			<li><a href="${imall_path}../product/create" target="rightFrame">创建商品</a>
 			</li>
+			<li><a href="${imall_path}../product/delete" target="rightFrame">删除商品</a>
+			</li>
 		</ul>
 	</div>
 	<div>

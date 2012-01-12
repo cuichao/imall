@@ -195,6 +195,43 @@ public class ProductController implements ServletContextAware {
 		view.addObject("advertiseSmallList",this.advertiseService.findByType(Constant.ADVERTISE_TYPE.INDEX_SMALL));
 		return view;
 	}
+	@RequestMapping(value = "/{productId}/delete",method = RequestMethod.GET)
+	public String deleteProduct(@PathVariable("productId") Integer productId)
+	{
+		Product p = this.productService.getProduct(productId);
+		if(p != null)
+		{
+			this.productService.deleteProductDetailsByProductId(p.getId());
+			this.productService.deleteProduct(p.getId());
+		}
+		return "redirect:/product/delete";
+		
+	}
+	@RequestMapping(value = "/delete",method = RequestMethod.GET)
+	public ModelAndView showToDeleteProductList(@RequestParam(value = "page",required=false)Integer page)
+	{
+		if(page == null)
+		{
+			page = 1;
+		}
+		PageBean pb = new PageBean();
+		pb.setPage(page);
+		pb.setSize(PageBean.DEFAULT_SIZE);
+		pb.addDescOrder("id");
+		List<Product> pList  = this.productService.getList(pb);
+		for(Product p : pList)
+		{
+			List<ProductDetail> pdList = this.productService.getProudctDetailList(p.getId());
+			p.setPdList(pdList);
+		}
+		
+		ModelAndView view = new ModelAndView();
+		view.setViewName("product/delete");
+		view.addObject("page", pb);
+		view.addObject("productList",pList);
+		return view;
+		
+	}
 
 	@RequestMapping(value = "{productId}/show", method = RequestMethod.GET)
 	public ModelAndView showProduct(@PathVariable("productId") Integer productId) {

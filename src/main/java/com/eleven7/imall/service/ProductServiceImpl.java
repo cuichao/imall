@@ -104,5 +104,14 @@ public class ProductServiceImpl implements IProductService{
 	{
 		return this.sendTypeDao.findAll();
 	}
+	public void deleteProduct(Integer id)
+	{
+		this.productDao.delete(id);
+	}
+	public void deleteProductDetailsByProductId(Integer pid)
+	{
+		List<ProductDetail> list = this.productdetailDao.findByProperty("productid", pid);
+		this.productdetailDao.deleteBatch(list);
+	}
 
 }
