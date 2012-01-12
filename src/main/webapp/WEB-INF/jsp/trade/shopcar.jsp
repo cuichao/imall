@@ -13,6 +13,7 @@
 
 	<div id="main">
 		<div class="container clearfix">
+			<div class="pd10">
 			<div class="cart clearfix">
 				<h2>opena</h2>
 				<h3>购物车</h3>
@@ -64,6 +65,7 @@
 						</tr>
 					</c:if>
 				</table>
+			</div>
 			</div>
 		</div>
 	</div>

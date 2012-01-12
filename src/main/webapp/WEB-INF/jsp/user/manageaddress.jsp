@@ -23,8 +23,7 @@
 				<li>手机：<span id="span_phone_${address.id}">${address.phone}</span></li>
 				<li>固话：<span id="span_telephone_${address.id}">${address.telephone}</span></li>
 				</ul>
-			<div id="button_div_${address.id}">
-			<hr class="hr12" />
+			<div id="button_div_${address.id}"  class="address-btn">
 			<input class="btn" type="button" value="修改" onclick="modifyAddress(${address.id});">
 			<input class="btn" type="button" value="删除" onclick="deleteAddress('${address.id}');">
 			</div>

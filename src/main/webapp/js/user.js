@@ -217,7 +217,7 @@
 		var action= basePath + "/user/address/" + addressId+"/update";
 		var formid = "modifyAddressForm_"+addressId;
 		var modify_div = $("<div id='modify_"+ addressId + "'></div>");
-		modify_div.append("<b>修改收货地址：</b>");
+		modify_div.append("<h3>修改收货地址：</h3>");
 		var form = $('<form id="'+ formid + '" action="' + action +'" method="POST"></form>');
 		var ul = $("<ul></ul>");
 		ul.append("<li><input type='hidden' name='id' value='" + addressId + "'></li>");
@@ -231,7 +231,7 @@
 		ul.append("<li>手机:<input type='text' name='phone' value='" + phone + "'></li>");
 		var telephone = $("#span_telephone_"+addressId).html();
 		ul.append("<li>固话:<input type='text' name='telephone' value='" + telephone + "'></li>");
-		ul.append("<li><input class='btn' type='button' value='修改' onclick='modifyAddressSubmit(" + addressId +");'>&nbsp;&nbsp;<input class='btn' type='button' value='取消' onclick='cancelModifyAddress(" + addressId +");'></li>");
+		ul.append("<div class='address-btn'><input class='btn' type='button' value='修改' onclick='modifyAddressSubmit(" + addressId +");'>&nbsp;&nbsp;<input class='btn' type='button' value='取消' onclick='cancelModifyAddress(" + addressId +");'></div>");
 		form.append(ul);
 		modify_div.append(form);
 		
@@ -275,9 +275,9 @@
 		        	  li.append("<span id='span_telephone_" + data.id + "'>" + data.telephone +"</span>");
 		        	  ul.append(li);
 		        	  div.append(ul);
-		        	  var button_div = $("<div id='button_div_"+data.id + "'></div>");
-		        	  button_div.append("<input type='button' value='修改' onclick='modifyAddress(" + data.id + ")'>");
-		        	  button_div.append("<input type='button' value='删除' onclick='deleteAddress(" + data.id + ");'>");
+		        	  var button_div = $("<div class='address-btn' id='button_div_"+data.id + " '></div>");
+		        	  button_div.append("<input class='btn' type='button' value='修改' onclick='modifyAddress(" + data.id + ")'>");
+		        	  button_div.append(" <input class='btn' type='button' value='删除' onclick='deleteAddress(" + data.id + ");'>");
 		        	  div.append(button_div);
 		        	  $("#old_address_div").append(div);  
 		          }	   	  

@@ -11,12 +11,11 @@
 </style>
 </head>
 <body>
-	<div id="main">
-		<div class="container clearfix">
+	<div id="main" style="background:#fff; min-height:100%; ">
 			<div style="padding:0 6px;">
 				<h2 style="text-align:center; font-size:25px; line-height:38px; ">创建商品</h2>
 				<form method="post" action="createSubmit" enctype="multipart/form-data">
-				<table id="createTable">
+				<table id="createTable" style="width:99%; ">
 				<tr>
 				<td>名称</td>
 				<td><input type="text" id="name" name="name"></td>
@@ -43,7 +42,6 @@
 				</table>
 				</form>
 			</div>
-		</div>
 	</div>
 </body>
 </html>

@@ -40,11 +40,12 @@
 						<p>${product.shortDesc}</p>
 						<c:set  var="detail_size" value="${fn:length(product.pdList)}"/>
 						<div id="selectId">
+							<div class="product-color">
 							<c:if test="${detail_size > 1}">
 							请选择颜色：<span id="detail_desc" class="red"></span>
 								<c:forEach items="${product.pdList}" var="detail">
-									<img src="${imall_path}${detail.picturePath}" alt="说明"
-										title="说明" class="img_small_size" id="${detail.id}"
+									<img class="product-show-tinyimg" src="${imall_path}${detail.picturePath}" width="25" height="25" alt="说明"
+										title="说明" style="vertical-align:middle" id="${detail.id}"
 										onclick="selectProductDetail('${detail.id}');" />
 									<input type="hidden" id="count_${detail.id}" value="${detail.count}">
 								</c:forEach>
@@ -57,7 +58,9 @@
 										value="${detail.id}" />
 									<input type="hidden" id="count_${detail.id}" value="${detail.count}">
 								</c:forEach>
-							</c:if>               
+							</c:if>  
+							</div>
+							<div>
 							请选择数量：
 							<c:if test="${product_count == 0}">
 							<input type="text" id="count" name="count" value="1" disabled/>
@@ -67,6 +70,7 @@
                              <input type="text" id="count" name="count" value="1" /> 
                              <a class="btn" href="${imall_path}mycar" onclick="return addProduct2Cookie();">我要购买</a>
 							</c:if>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -139,5 +143,10 @@ function changeAdvertisement()
 		
 	}
 }
+$(".product-show-tinyimg").click(function(){
+	$(".product-show-tinyimg").removeClass("on");
+	$(this).addClass("on");
+	
+});
 </script>
 </html>

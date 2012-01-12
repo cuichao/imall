@@ -16,6 +16,7 @@ a{ text-decoration:none;  }
 .triangle{ width:17px; height:9px; overflow:hidden; font-size:12px}
 .mr20{ margin-right:20px; }
 .hr12{ height:12px; visibility:hidden; border:none; margin:0; }
+.pd10{ padding:10px; }
 
 /*table*/
 .base-table{ width:98%; } 
@@ -48,11 +49,11 @@ a{ text-decoration:none;  }
 
 /*-----------------------------list----------------------------------*/
 .list{ padding:12px 43px 26px 43px; position:relative; height:150px;background:url('../images/product-list-shadow.png') left 175px no-repeat; }
-.list-img{ border:1px solid #dcdcdc; display:inline-block; width:147px; heihgt:147px; }
+.list-img{ border:1px solid #dcdcdc; display:inline-block; width:147px; height:147px; }
 .list-content{ padding:6px 0 14px 15px; width:480px; }
 .list-content h3 a{ font-size:24px; color:#608f02}
 .list-content h3 span{ font-size:10px; color:#699611; margin-left:8px}
-.list-content p{ color:#4c4c4c; line-height:18px; padding:3px 0 16px 0}
+.list-content p{ color:#4c4c4c; line-height:18px; padding:3px 0 16px 3px}
 .list-content .btn{ position:absolute; right:43px; bottom:26px; }
 
 
@@ -88,7 +89,9 @@ a{ text-decoration:none;  }
 .comment-summit-btn{ text-align:right; }
 .comment-content{ line-height:22px; width:566px; word-break:break-all; word-wrap:break-word; }
 .product-comment-wrap{ min-height:12px; padding-right:12px; }
-#product-coment-btn{  }
+.product-color{ margin-bottom:5px;}
+.product-show-tinyimg{ border:1px solid #F2EFEF; }
+.product-color .on{ border:1px solid #820909; }
 
 .banner{ text-align:center; padding-bottom:18px}
 .adv{ margin-left:19px}
@@ -101,7 +104,7 @@ a{ text-decoration:none;  }
 .login-con div,.regist-con div{ margin-top:12px}
 #passcode{ width:80px; }
 .user_name,.user_pw,.passcode{ height:22px; line-height:22px; border:1px solid #aba8a8; width:153px; }
-.no-username a{ margin-left:20px; color:#4D4A49}
+.no-username a{ margin-left:20px; color:#2953A6}
 .passcode{ width:68px; vertical-align:bottom; height:24px}
 .login-btn{ margin-left:167px}
 .cart{ background:url('../images/cart-bg.png') #ebebeb right 55px no-repeat; padding:10px 0 0 42px; color:#4c4a49; margin-bottom:38px}
@@ -158,6 +161,7 @@ a{ text-decoration:none;  }
 #show_address_div h3{ font: normal 18px/22px "微软雅黑"; margin-bottom:6px; padding-bottom:6px; border-bottom: 1px solid #C6C6C6;}
 #old_address_div{ margin-bottom:12px; }
 #show_address_div ul li{ line-height:22px; font-size:15px; }
+.address-btn{ padding:12px 0; }
 
 #captcha_img .none{display:none;}
 .aside_size{ width:210px; height:422px; }

@@ -8,8 +8,8 @@
 <%@ include file="../header.jsp"%>
 <div id="main">
 	<div class="container clearfix w">
-		<iframe src="${imall_path}admin/left"  id="leftFrame" name="leftFrame" scrolling="no" width="19%" height="80%"></iframe>
-		<iframe name="rightFrame" id="rightFrame" width="79%" scrolling="no"  height="80%"></iframe>
+		<iframe src="${imall_path}admin/left"  id="leftFrame" style="" name="leftFrame" scrolling="no" height="80%"></iframe>
+		<iframe name="rightFrame" id="rightFrame" style="width:83%; "   height="80%"></iframe>
 	</div>
 </div>
 <%@ include file="../footer.jsp"%>
