@@ -13,7 +13,7 @@
 </head>
 <body>
 	<div id="main" class="admin-main">
-		<div class="container clearfix">
+		<div class="clearfix" style="padding:0 12px; ">
 			<div style="padding: 0 6px;">
 				<h2 style="text-align: center; font-size: 25px; line-height: 38px;">添加广告</h2>
 				<form method="post" action="createSubmit"

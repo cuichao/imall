@@ -8,6 +8,7 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/ckeditor/ckeditor.js"></script>
 <style type="text/css">
 #createTable td{ padding:1px; }
+html,body{ height:100%; }
 </style>
 </head>
 <body>

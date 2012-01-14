@@ -1,25 +1,104 @@
-<%@ include file="/WEB-INF/jsp/global.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
 <head>
+<%@ include file="/WEB-INF/jsp/global.jsp"%>
 </head>
 <body>
 <%@ include file="/WEB-INF/jsp/header.jsp"%>
 <div id="main">
 		<div class="container clearfix"> 
+			<div id="banner" class="banner">	
+			    <ul>
+			        <li class="on">1</li>
+			        <li>2</li>
+			        <li>3</li>
+			        <li>4</li>
+			    </ul>
+			   <div id="banner_list">
+			   		<a id="advertise_big_a" href="javascript:void(0);"><img src="${imall_path}images/banner.png" width="924px" height="456px" des="description" alt="图片说明" title="图片说明" /></a>
+			   		<a id="advertise_big_a" class="hide" href="javascript:void(0);"><img src="${imall_path}images/banner2.png" width="924px" height="456px" des="description" alt="图片说明" title="图片说明" /></a>
+			   		<a id="advertise_big_a" class="hide" href="javascript:void(0);"><img src="${imall_path}images/banner.png" width="924px" height="456px" des="description" alt="图片说明" title="图片说明" /></a>
+			   		<a id="advertise_big_a" class="hide" href="javascript:void(0);"><img src="${imall_path}images/banner2.png" width="924px" height="456px" des="description" alt="图片说明" title="图片说明" /></a>
+				</div>
+			</div>
 			<div class="banner"> 
-				<a id="advertise_big_a" href="javascript:void(0);"><img id="advertise_big_img" width="924px" height="456px" alt="图片说明" title="图片说明" /></a>
+				
 			</div>
 			<a id="advertise_small_a" class="adv" href="javascript:void(0);">
-				<img id="advertise_small_img" width="307px" height="198px" alt="图片说明" title="图片说明" />
+				<img id="advertise_small_img" width="573px" height="197px" alt="图片说明" title="图片说明" />
 			</a>
-			<div class=""> 
+			<div class="index-infolist"> 
+			<h2>新闻-News</h2>
+			<ul>
+				<li><span>01-14</span><a href="#">Opene 彩壳新概念 随心而换</a></li>
+				<li><span>01-14</span><a href="#">联通Iphone 4s 发售，0元购机</a></li>
+				<li><span>01-14</span><a href="#">联通Iphone 4s 发售，0元购机</a></li>
+				<li><span>01-14</span><a href="#">联通Iphone 4s 发售，0元购机</a></li>
+				<li><span>01-14</span><a href="#">联通Iphone 4s 发售，0元购机</a></li>
+				<li><span>01-14</span><a href="#">联通Iphone 4s 发售，0元购机</a></li>
+			</ul>
 			</div>
 		</div>
 	</div>
 <%@ include file="/WEB-INF/jsp/footer.jsp"%>
 </body>
+<script type="text/javascript">
+//图片轮播功能
+(function(){
+	$.bSlide = {
+		init : function(slides, tabs, slidesInfo){
+			if(!slides || !tabs){
+				return;
+			}
+			$.bSlide.slides = slides;                        //轮播内容
+			$.bSlide.tabs = tabs;							   //按钮
+			$.bSlide.slidesInfo = slidesInfo;            //文字说明
+			$.bSlide.length = $.bSlide.slides.length;
+			$.bSlide.current = 0;
+			$.bSlide.slidesInfo.html($.bSlide.slides.eq($.bSlide.current).find("img").attr('des'));
+			$.bSlide.tabs.each(function(index){
+				$(this).click(function(){
+					if($.bSlide.current == index){ return; }
+					$.bSlide.hide($.bSlide.current);
+					$.bSlide.show(index);
+					$.bSlide.current = index;
+				})
+			});
+			$.bSlide.t = setInterval($.bSlide.showAuto, 5000);
+			$("#banner").hover(
+				function(){
+					clearInterval($.bSlide.t)
+				}, 
+				function(){
+					$.bSlide.t = setInterval($.bSlide.showAuto, 5000);
+			});
+		},
+		show : function(index){
+			$.bSlide.slides.eq(index).fadeIn(1000);
+			$.bSlide.slidesInfo.html($.bSlide.slides.eq(index).find("img").attr('des'));
+			$.bSlide.tabs.eq(index).toggleClass("on");
+		},
+		hide : function(index){
+			$.bSlide.slides.eq(index).fadeOut(1000);
+			$.bSlide.tabs.eq(index).toggleClass("on");
+		},
+		showAuto : function(){
+			$.bSlide.hide($.bSlide.current);
+			if($.bSlide.current >= $.bSlide.length - 1) {
+				$.bSlide.current = 0; 
+			}else{
+				$.bSlide.current++;
+			}
+			$.bSlide.show($.bSlide.current);
+		}
+	}
+	$(function(){
+		$.bSlide.init($("#banner_list a"), $("#banner ul li"), $("#banner_info"));
+	})
+})()
+</script>
 <script>
 var adBigUrl = new Array();
 var adBigPic = new Array();
