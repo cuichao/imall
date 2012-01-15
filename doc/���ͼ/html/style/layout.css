@@ -87,3 +87,6 @@ a{ text-decoration:none;  }
 .cart .cart-submit{ text-align:right; font-size:18px; background:none}
 .cart-submit a{ color:#fff}
 .cart-total{ color:#9f0606; margin:0 28px 0 7px}
+/*-----------------------------about----------------------------------*/
+.about-con{ width:475px; padding-top:143px; background:url('../images/about.png') no-repeat;}
+.about-con p{ color:#757272; line-height:23px;  }
