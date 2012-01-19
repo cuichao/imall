@@ -1,7 +1,7 @@
-<%@ include file="/WEB-INF/jsp/global.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
+<%@ include file="/WEB-INF/jsp/global.jsp"%>
 <html>
 <head>
 <title>我的订单</title>
@@ -60,9 +60,17 @@
 	 </c:if> <c:if test="${order.payType == 'PAY_AFTER_PRODUCT_ARRIVED'}">
 	 货到付款
 	 </c:if></td>
-					<td></td>
+					<td>
+					<c:if test="${ order.status == 'preSend' or order.status  == 'prePay' }">
+						<a href="${imall_path}trade/${order.id}/cancel">取消</a>
+					</c:if>
+					</td>
 				</tr>
-			</c:forEach>
+			</c:forEach>		
 		</table>
+		<div class="page fr">
+		 <%@ include file="../page.jsp" %>
+		</div>
 	</div>
+<input type="hidden" name="page" id="page" value="${page.page}" />
 </html>

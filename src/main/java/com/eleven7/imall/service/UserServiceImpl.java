@@ -1,6 +1,9 @@
 package com.eleven7.imall.service;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,7 @@ import com.eleven7.imall.bean.Userinfo;
 import com.eleven7.imall.dao.IAddressDao;
 import com.eleven7.imall.dao.IUserinfoDao;
 import com.eleven7.imall.dao.base.PageBean;
+import com.eleven7.imall.dao.base.sqlcondition.LessThanCondition;
 
 @Service
 public class UserServiceImpl implements IUserService {
@@ -77,6 +81,18 @@ public class UserServiceImpl implements IUserService {
 	public void deleteAddress(Integer id)
 	{
 		this.addressDao.delete(id);
+	}
+	public List<Userinfo> listUnactiveUser(Date beforeDate)
+	{
+		Map<String,Object> paramMap = new HashMap<String,Object>();
+		LessThanCondition con = new LessThanCondition("createtime",beforeDate);
+		paramMap.put("active", Boolean.FALSE);
+		paramMap.put("createtime", con);
+		return this.userinfoDao.findByProperties(paramMap);
+	}
+	public void deleteUsers(List<Userinfo> uiList)
+	{
+		this.userinfoDao.deleteBatch(uiList);
 	}
 
 }

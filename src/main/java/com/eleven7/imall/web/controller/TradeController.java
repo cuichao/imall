@@ -155,6 +155,19 @@ public class TradeController {
 		return view;
 
 	}
+	@RequestMapping(value = "/trade/{orderId}/cancel", method = RequestMethod.GET)
+	public ModelAndView cancelOrder(@PathVariable("orderId") Integer orderId) {
+		ModelAndView view = new ModelAndView();
+		int result = this.orderService.cancelOrder(orderId);
+		if(result != 0)
+		{
+			view.setViewName("../../error");
+			view.addObject("error", "订单已发货，不能取消。如需帮助，请联系管理员！");
+			return view;
+		}
+		view.setViewName("redirect:/trade/myorder");
+		return view;
+	}
 
 	private void updateProductDetailCount(List<ProductDetailDto> pddList) {
 		List<ProductDetail> pdList = new ArrayList<ProductDetail>();
@@ -247,15 +260,21 @@ public class TradeController {
 	}
 
 	@RequestMapping(value = "/trade/myorder", method = RequestMethod.GET)
-	public ModelAndView getOrderListByUser() {
+	public ModelAndView getOrderListByUser(@RequestParam(value = "page",required=false)Integer page) {
+		if(page == null)
+		{
+			page = 1;
+		}
 		PageBean pb = new PageBean();
-		pb.setShowAll(true);
+		pb.setPage(page);	
+		pb.addDescOrder("id");
 		Userinfo ui = SpringSecurityUtils.getCurrentUser();
 		List<Ordering> orderList = this.orderService.getOrderListByUser(
 				ui.getId(), pb);
 		ModelAndView view = new ModelAndView();
 		view.setViewName("/trade/userorder");
 		view.addObject("orderList", orderList);
+		view.addObject("page", pb);
 		return view;
 	}
 

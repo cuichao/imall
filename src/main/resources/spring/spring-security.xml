@@ -11,7 +11,11 @@
         <intercept-url pattern="/product/create*" access="hasRole('ADMIN_USER')" />
         <intercept-url pattern="/back/*" access="hasRole('ADMIN_USER')" />
         <intercept-url pattern="/admin/*" access="hasRole('ADMIN_USER')" />
-
+        <intercept-url pattern="/product/*/delete" access="hasRole('ADMIN_USER')" />
+        <intercept-url pattern="/product/delete" access="hasRole('ADMIN_USER')" />
+        <intercept-url pattern="/advertise/*" access="hasRole('ADMIN_USER')" />
+        <intercept-url pattern="/user/delete/unactive" access="hasRole('ADMIN_USER')" />
+        
         <!-- plain user operation -->
         <intercept-url pattern="/product/*/savecomment" access="hasRole('ROLE_USER')" />
         <intercept-url pattern="/user" access="hasRole('ROLE_USER')" />  

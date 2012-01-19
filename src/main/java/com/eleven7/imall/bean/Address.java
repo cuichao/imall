@@ -26,9 +26,9 @@ public class Address {
 	@Column(length = 10)
 	private String mailcode;
 	@Column(length = 30)
-	private String phone;
+	private String phone;//手机
 	@Column(length = 30)
-	private String telephone;
+	private String telephone;//座机
 	@Column
 	private Date createtime = new Date();
 	@Column

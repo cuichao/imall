@@ -145,8 +145,14 @@
 	          }
 	    });	 
 	};
-	
-	
-	
-	
+	checkOrder = function()
+	{	
+		var address = $("#address_id").val();		
+		if(address == "")
+		{
+			alert("请您添加收货人信息！");
+			return false;
+		}
+		return true;
+	};
 })(jQuery, window);

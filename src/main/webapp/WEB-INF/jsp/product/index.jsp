@@ -4,45 +4,66 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/jsp/global.jsp"%>
+<%@ include file="/WEB-INF/jsp/header.jsp"%>
 </head>
 <body>
-<%@ include file="/WEB-INF/jsp/header.jsp"%>
-<div id="main">
-		<div class="container clearfix"> 
-			<div id="banner" class="banner">	
-			    <ul>
-			        <li class="on">1</li>
-			        <li>2</li>
-			        <li>3</li>
-			        <li>4</li>
-			    </ul>
-			   <div id="banner_list">
-			   		<a id="advertise_big_a" href="javascript:void(0);"><img src="${imall_path}images/banner.png" width="924px" height="456px" des="description" alt="图片说明" title="图片说明" /></a>
-			   		<a id="advertise_big_a" class="hide" href="javascript:void(0);"><img src="${imall_path}images/banner2.png" width="924px" height="456px" des="description" alt="图片说明" title="图片说明" /></a>
-			   		<a id="advertise_big_a" class="hide" href="javascript:void(0);"><img src="${imall_path}images/banner.png" width="924px" height="456px" des="description" alt="图片说明" title="图片说明" /></a>
-			   		<a id="advertise_big_a" class="hide" href="javascript:void(0);"><img src="${imall_path}images/banner2.png" width="924px" height="456px" des="description" alt="图片说明" title="图片说明" /></a>
+	<div id="main">
+		<div class="container clearfix">
+			<div id="banner" class="banner">
+				<ul>
+					<c:set var="big_size" value="${fn:length(advertiseBigList)}" />				
+					<c:if test="${big_size > 1}">
+						<c:set var="idx" value="0" />
+						<c:forEach items="${advertiseBigList}" var="ad">
+							<c:if test="${idx == 0}">
+								<li class="on">1</li>
+							</c:if>
+							<c:if test="${idx != 0}">
+								<li>${idx + 1}</li>
+							</c:if>
+							<c:set var="idx" value="${idx + 1}" />
+						</c:forEach>
+					</c:if>
+				</ul>
+				<div id="banner_list">
+					<c:if test="${big_size == 0}">
+						<a id="advertise_big_a" href="javascript:void(0);"><img
+							src="${imall_path}images/banner.png" width="924px" height="456px"
+							des="description" alt="图片说明" title="图片说明" />
+						</a>
+					</c:if>
+					<c:if test="${big_size > 0}">
+						<c:set var="idx" value="0" />
+						<c:forEach items="${advertiseBigList}" var="ad">
+							<c:if test="${idx == 0}">
+								<a id="advertise_big_a" href="${ad.url}"><img
+									src="${imall_path}${ad.picturePath}" width="924px"
+									height="456px" des="description" alt="图片说明" title="图片说明" />
+								</a>
+							</c:if>
+							<c:if test="${idx != 0}">
+								<a id="advertise_big_a" class="hide" href="${ad.url }"><img
+									src="${imall_path}${ad.picturePath}" width="924px"
+									height="456px" des="description" alt="图片说明" title="图片说明" />
+								</a>
+							</c:if>
+							<c:set var="idx" value="${idx + 1}" />
+						</c:forEach>
+					</c:if>
 				</div>
 			</div>
-			<div class="banner"> 
-				
-			</div>
+			<div class="banner"></div>
 			<a id="advertise_small_a" class="adv" href="javascript:void(0);">
-				<img id="advertise_small_img" width="573px" height="197px" alt="图片说明" title="图片说明" />
-			</a>
-			<div class="index-infolist"> 
-			<h2>新闻-News</h2>
-			<ul>
-				<li><span>01-14</span><a href="#">Opene 彩壳新概念 随心而换</a></li>
-				<li><span>01-14</span><a href="#">联通Iphone 4s 发售，0元购机</a></li>
-				<li><span>01-14</span><a href="#">联通Iphone 4s 发售，0元购机</a></li>
-				<li><span>01-14</span><a href="#">联通Iphone 4s 发售，0元购机</a></li>
-				<li><span>01-14</span><a href="#">联通Iphone 4s 发售，0元购机</a></li>
-				<li><span>01-14</span><a href="#">联通Iphone 4s 发售，0元购机</a></li>
-			</ul>
+				<img id="advertise_small_img" width="573px" height="197px"
+				alt="图片说明" title="图片说明" /> </a>
+			<div class="index-infolist">
+				<h2>新闻-News</h2>
+				<ul>				
+				</ul>
 			</div>
 		</div>
 	</div>
-<%@ include file="/WEB-INF/jsp/footer.jsp"%>
+	<%@ include file="/WEB-INF/jsp/footer.jsp"%>
 </body>
 <script type="text/javascript">
 //图片轮播功能
@@ -66,14 +87,17 @@
 					$.bSlide.current = index;
 				})
 			});
-			$.bSlide.t = setInterval($.bSlide.showAuto, 5000);
-			$("#banner").hover(
-				function(){
-					clearInterval($.bSlide.t)
-				}, 
-				function(){
-					$.bSlide.t = setInterval($.bSlide.showAuto, 5000);
-			});
+			if($.bSlide.length > 1)
+			{
+				$.bSlide.t = setInterval($.bSlide.showAuto, 5000);
+				$("#banner").hover(
+					function(){
+						clearInterval($.bSlide.t)
+					}, 
+					function(){
+						$.bSlide.t = setInterval($.bSlide.showAuto, 5000);
+				});
+			}				
 		},
 		show : function(index){
 			$.bSlide.slides.eq(index).fadeIn(1000);
@@ -100,44 +124,6 @@
 })()
 </script>
 <script>
-var adBigUrl = new Array();
-var adBigPic = new Array();
-<c:set var="idx" value="0"/>
-<c:forEach items="${advertiseBigList}" var="ad">
-	adBigUrl[${idx}]="${ad.url}";
-	adBigPic[${idx}]="${ad.picturePath}";
-	<c:set var="idx" value="${idx + 1}"/>
-</c:forEach>
-var index = 0;
-var count = adBigUrl.length;
-if(count == 0)
-{
-	$("#advertise_big_img").attr("src","${imall_path}images/banner.png");
-}
-else
-{
-	index ++;
-	$("#advertise_big_img").attr("src",basePath + "/" + adBigPic[0]);
-	$("#advertise_big_a").attr("href",adBigUrl[0]);
-	setInterval("changeBigAdvertisement()",3000);
-		
-};
-
-function changeBigAdvertisement()
-{
-	if(count > 0)
-	{
-		if(index >= count)
-		{
-			index = 0;
-		}
-		$("#advertise_big_img").attr("src",basePath + "/" + adBigPic[index]);
-		$("#advertise_big_a").attr("href",adBigUrl[index]);
-		index ++;
-		
-	}
-}
-
 var adSmallUrl = new Array();
 var adSmallPic = new Array();
 <c:set var="cnt" value="0"/>
@@ -157,7 +143,7 @@ else
 	small_index ++;
 	$("#advertise_small_img").attr("src",basePath + "/" + adSmallPic[0]);
 	$("#advertise_small_a").attr("href",adSmallUrl[0]);
-	setInterval("changeSmallAdvertisement()",3000);
+	setInterval("changeSmallAdvertisement()",5000);
 		
 };
 function changeSmallAdvertisement()

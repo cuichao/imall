@@ -4,11 +4,11 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/jsp/global.jsp"%>
-<title>Error</title>
+<title>Result</title>
 </head>
 <body>
-<c:if test="${ error != null }">
-<span class="red">${error}</span>
+<c:if test="${ result !=null }">
+${result}
 </c:if>
 </body>
 </html>

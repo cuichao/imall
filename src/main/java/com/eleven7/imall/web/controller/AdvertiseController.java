@@ -14,11 +14,13 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.eleven7.imall.bean.Advertise;
 import com.eleven7.imall.constant.Constant;
@@ -93,6 +95,22 @@ public class AdvertiseController implements ServletContextAware {
 		}
 		return "advertise/result";
 	}
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView showList() {
+		ModelAndView view = new  ModelAndView();
+		view.setViewName("advertise/list");
+		List<Advertise> list = this.advertiseService.findAll();
+		view.addObject("adList", list);
+		return view;
+	}
+	
+	@RequestMapping(value = "/{advertiseId}/delete", method = RequestMethod.GET)
+	public String deleteAdvertise(@PathVariable(value="advertiseId")Integer advertiseId) {
+		
+		this.advertiseService.deleteById(advertiseId);
+		return "redirect:/advertise/list";
+	}
+	
 
 	private String getUploadAdvertisePath() {
 		String path = this.servletContext.getRealPath("/"

@@ -2,7 +2,37 @@
 	
 	$(document).ready(function() {
 	});
-	
+	checkEmailRegister = function()
+	{	
+		if(!checkEmail())
+		{
+		  return false;	
+		}		
+		var email = $.trim($("#email").val());
+		var checkUrl = basePath +"/user/checkRegister?email="+email;
+		$.ajax({ 
+	          type : "get",  
+	          url  :  checkUrl,
+	          async : true,
+	          success : function(data){       	
+	        	if(data == 1)
+	        	{
+	        		$("#email_error").html("此邮箱已注册，但尚未激活，请在24小时内登陆邮箱激活！");
+	        	}
+	        	else if(data == 2)
+	        	{
+	        		 $("#email_error").html("此邮箱已注册，请直接登陆！");
+	        	}
+	        	else
+	        	{
+	        		 $("#email_error").html("");
+	        	}
+	        	
+	          }
+	    });	 
+		
+		
+	};
 	registerCheck = function(){
 		 //check email
 		if(!checkEmail())
@@ -19,19 +49,18 @@
 		var p1 = $.trim($("#password1").val());
 		if(p.length < 6 )
 		{
-			alert("密码最短为6位！");
+			alert("密码不能少于6位！");
 			return false;
 		}
 		if(p != p1)
 		{
 			 alert("两次密码不一致!");
 			 return false;
-		}
-		
-//		 if(!checkCaptcha())
-//		 {
-//			 return false;
-//		 }
+		}	
+		 if(!checkCaptcha())
+		 {
+			 return false;
+		 }
 		 return true;
 		 
 	};

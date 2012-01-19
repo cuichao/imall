@@ -1,5 +1,7 @@
 package com.eleven7.imall.service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -10,9 +12,11 @@ import com.eleven7.imall.bean.OrderDetail;
 import com.eleven7.imall.bean.OrderPayment;
 import com.eleven7.imall.bean.OrderStatus;
 import com.eleven7.imall.bean.Ordering;
+import com.eleven7.imall.bean.ProductDetail;
 import com.eleven7.imall.dao.IOrderDao;
 import com.eleven7.imall.dao.IOrderDetailDao;
 import com.eleven7.imall.dao.IOrderPaymentDao;
+import com.eleven7.imall.dao.IProductDetailDao;
 import com.eleven7.imall.dao.base.PageBean;
 @Service
 public class OrderServiceImpl implements IOrderService{
@@ -25,8 +29,15 @@ public class OrderServiceImpl implements IOrderService{
 	private IOrderDetailDao orderDetailDao;
 	@Autowired
 	private IOrderPaymentDao orderPaymentDao;
+	@Autowired
+	private IProductDetailDao productDetailDao;
 	
-	
+	public IProductDetailDao getProductDetailDao() {
+		return productDetailDao;
+	}
+	public void setProductDetailDao(IProductDetailDao productDetailDao) {
+		this.productDetailDao = productDetailDao;
+	}
 	public IOrderPaymentDao getOrderPaymentDao() {
 		return orderPaymentDao;
 	}
@@ -108,6 +119,32 @@ public class OrderServiceImpl implements IOrderService{
 		pb.addDescOrder("od.id");
 		String hql = "select od from OrderDetail od ,Ordering o where o.userid = ? and o.id = od.orderid";
 		return this.orderDetailDao.find(pb, hql, userid);
+	}
+	public synchronized int cancelOrder(Integer orderId)//0表示cancel成功，1表示失败
+	{
+		Ordering order = this.orderDao.get(orderId);
+		OrderStatus status = order.getStatus();
+		if( status == OrderStatus.prePay || status == OrderStatus.preSend)
+		{
+			order.setStatus(OrderStatus.canceled);
+			order.setUpdatetime(new Date());
+		}
+		else
+		{
+			return 1;//不能取消了
+		}
+		this.orderDao.saveOrUpdate(order);
+		
+		List<OrderDetail> odList = this.getOrderDetailList(orderId);
+		List<ProductDetail> pdList = new ArrayList<ProductDetail>();
+		for(OrderDetail od : odList)
+		{
+			ProductDetail pd = this.productDetailDao.get(od.getProductdetailid());
+			pd.setCount(pd.getCount() + od.getNum());
+			pdList.add(pd);
+		}
+		this.productDetailDao.saveOrUpdateAll(pdList);
+		return 0;
 	}
 
 }

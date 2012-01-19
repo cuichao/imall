@@ -1,6 +1,7 @@
-<%@ include file="/WEB-INF/jsp/global.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<%@ include file="/WEB-INF/jsp/global.jsp"%>
 <html>
 <head>
 <script type="text/javascript"
@@ -19,15 +20,15 @@
 					<form action="registerSubmit" method="post">
 						<div>
 							<label for="user_name" class="">邮箱</label> <input type="text"
-								id="email" name="email" class="required isHadUser"><span
-								style="color: red;">*</span>
+								id="email" name="email" class="required isHadUser" onblur="checkEmailRegister();"><span
+								style="color: red;">*<span id="email_error"></span></span>
 						</div>
 						<div>
 							<label for="user_name" class="">昵称</label> <input type="text"
 								id="nickname" name="nickname"><span style="color: red;">*</span>
 						</div>
 						<div>
-							<label for="user_pw" class="user_pw">密码</label> <input
+							<label for="user_pw" class="">密码</label> <input
 								type="password" id="password" name="password"
 								class="required text"><span style="color: red;">*</span>
 						</div>

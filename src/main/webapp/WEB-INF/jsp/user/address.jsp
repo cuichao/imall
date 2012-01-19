@@ -1,6 +1,7 @@
-<%@ include file="/WEB-INF/jsp/global.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<%@ include file="/WEB-INF/jsp/global.jsp"%>
 <c:set var="address_size" value="${fn:length(addressList)}"/>
 <c:set var="index" value="0"/>
 <div id="show_address_div">
@@ -12,9 +13,10 @@
 				<ul id="span_address_${address.id}">
 				<li>姓名：${address.accepter}</li>
 				<li>地址：${address.address}</li>
-				<li>邮箱：${address.mailcode}</li>
-				<li>固话：${address.phone}</li>
-				<li>手机：${address.telephone}</li>
+				<li>邮编：${address.mailcode}</li>
+				<li>手机：${address.phone}</li>
+				<li>固话：${address.telephone}</li>
+				
 				</ul>
 			</div>
 		</c:forEach>

@@ -92,7 +92,7 @@ a{ text-decoration:none;  }
 .product-comment-wrap{ min-height:12px; padding-right:12px; }
 .product-color{ margin-bottom:5px;}
 .product-show-tinyimg{ border:1px solid #F2EFEF; cursor:pointer; }
-.product-color .on{ border:1px solid #820909; }
+.product-color .on{ border:2px solid #820909; }
 
 .adv{ margin-left:19px; float:left; }
 /*图片轮播*/
@@ -187,7 +187,9 @@ a{ text-decoration:none;  }
 
 /*-----------------------------admin----------------------------------*/
 .admin-main{ background:#F7F7F7; min-height:100%; }
-
+/*-----------------------------about----------------------------------*/
+.about-con{ width:475px; padding-top:143px; background:url('../images/about.png') no-repeat;}
+.about-con p{ color:#757272; line-height:23px;  }
 
 
 

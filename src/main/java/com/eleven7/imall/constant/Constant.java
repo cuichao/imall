@@ -26,4 +26,6 @@ public class Constant {
 		public static final int INDEX_SMALL = 2;
 		public static final int PLAIN = 3;
 	}
+	
+	public static final long MILLISECONDS_ONE_DAY = 3600 * 24 * 1000;
 }

@@ -1,12 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/css/reset.css">
-<link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/css/layout.css">
-<style type="text/css">
-html,body{ height:100%; }
-</style>
+<!DOCTYPE html>
 <div class="manage-nav">
 	<div>
 		<h3>订单管理</h3>
@@ -38,6 +32,8 @@ html,body{ height:100%; }
 		<h3>广告管理</h3>
 		<ul>
 			<li><a href="${imall_path}../advertise/create" target="rightFrame">添加广告</a>
+			</li>
+			<li><a href="${imall_path}../advertise/list" target="rightFrame">删除广告</a>
 			</li>
 		</ul>
 	</div>

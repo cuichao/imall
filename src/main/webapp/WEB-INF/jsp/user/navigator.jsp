@@ -17,7 +17,7 @@ html,body{ height:100%; }
 	<h3>我的商品</h3>
 	<ul>
 	<li><a href="${imall_path}../trade/product" target="rightFrame">已购商品</a></li>
-	<li><a href="${imall_path}" target="rightFrame">我的收藏</a></li>
+	<li><a href="javascript:void(0);" target="rightFrame">我的收藏</a></li>
 	</ul>
 	</div>
 	<div>

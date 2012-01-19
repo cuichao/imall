@@ -1,7 +1,7 @@
-<%@ include file="/WEB-INF/jsp/global.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
+<%@ include file="/WEB-INF/jsp/global.jsp"%>
 <html>
 <head>
 <title>确认订单</title>
@@ -30,10 +30,11 @@
 						<c:forEach items="${addressList}" var="address" begin="0" end="0">
 							<input type="hidden" id="address_id" name="address_id" value="${address.id}">
 						<ul>
-		                	<li>姓名：${address.accepter}</li>
-		                    <li>联系电话：${address.telephone},${address.phone}</li>
-		                    <li>邮箱：${address.mailcode}</li>
+		                	<li>姓名：${address.accepter}</li>                    
 		                    <li>地址：${address.address}</li>
+		                    <li>邮编：${address.mailcode}</li>
+		                    <li>手机：${address.phone}</li>
+		                    <li>固话：${address.telephone}</li>
 	                    </ul>
 						</c:forEach>
 					</c:if>
@@ -168,7 +169,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan="3" class="order-info"><input type="submit" value="提交定单" class="btn">
+						<td colspan="3" class="order-info"><input type="submit" value="提交定单" class="btn" onclick="return checkOrder();">
 						</td>
 					</tr>
 				</c:if>

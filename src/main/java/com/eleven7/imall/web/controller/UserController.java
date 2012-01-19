@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -167,7 +168,7 @@ public class UserController implements ServletContextAware{
 		{
 			if(!existUi.isActive())
 			{
-				view.addObject("error","您的用户已经注册了，请到邮箱查收激活邮件以开启IMALL网帐号");
+				view.addObject("error","您的用户已经注册过了，请在24小时内登陆邮箱激活IMALL网帐号");
 			}
 			else
 			{
@@ -202,6 +203,25 @@ public class UserController implements ServletContextAware{
 		}
 		return view;
 	}
+	@RequestMapping(value="/checkRegister",method = RequestMethod.GET)
+	@ResponseBody
+	public int checkRegisterd(@RequestParam(value = "email",required=true)String email)
+	{
+		Userinfo existUi = this.userService.getUserbyEmail(email);
+		if(existUi != null)
+		{
+			if(!existUi.isActive())
+			{
+				return 1;
+			}
+			else
+			{
+				return 2;
+			}			
+		}
+		return 0;
+		
+	}
 	@RequestMapping(value="/active/{userid}/{code}",method = RequestMethod.GET)
 	public ModelAndView activeUser(@PathVariable("userid") Integer userid,@PathVariable("code") String code)
 	{
@@ -228,6 +248,21 @@ public class UserController implements ServletContextAware{
 		}
 		
 		return view;	
+	}
+	@RequestMapping(value="/delete/unactive",method = RequestMethod.GET)
+	public ModelAndView deleteUnactiveUsers()
+	{
+		Date date = new Date();
+		date.setTime(date.getTime() - Constant.MILLISECONDS_ONE_DAY);
+		List<Userinfo> uiList = this.userService.listUnactiveUser(date);
+		if(CollectionUtils.isNotEmpty(uiList))
+		{
+			this.userService.deleteUsers(uiList);
+		}
+		ModelAndView view = new ModelAndView();
+		view.setViewName("../../result");
+		view.addObject("result","删除成功！");
+		return view;
 	}
 	
 	private void sendActiveCodeToMail(Userinfo ui,HttpServletRequest request)

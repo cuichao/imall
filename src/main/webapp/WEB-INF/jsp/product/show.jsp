@@ -1,6 +1,7 @@
-<%@ include file="/WEB-INF/jsp/global.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<%@ include file="/WEB-INF/jsp/global.jsp"%>
 <html>
 <head>
 <script type="text/javascript"
@@ -63,11 +64,11 @@
 							<div>
 							请选择数量：
 							<c:if test="${product_count == 0}">
-							<input type="text" id="count" name="count" value="1" disabled/>
+							<input type="text" id="count" name="count" value="1" size="3" disabled/>
 							<input class="btn disabled" type="button" value="我要购买" disabled>
                             </c:if>
                             <c:if test="${product_count != 0}">
-                             <input type="text" id="count" name="count" value="1" /> 
+                             <input type="text" id="count" name="count" value="1" size="3"/> 
                              <a class="btn" href="${imall_path}mycar" onclick="return addProduct2Cookie();">我要购买</a>
 							</c:if>
 							</div>
@@ -89,7 +90,7 @@
 					<c:forEach items="${commentList}" var="comment">
 					<div class="product-comment-list">
 					<div class="comment-content"> ${comment.comment}</div>
-					<div class="product-comment-user">by  ${comment.user.nickname} ,at  ${comment.createtime}</div>
+					<div class="product-comment-user">${comment.user.nickname} ,发表于 <fmt:formatDate pattern= "yyyy-MM-dd HH:mm" value="${comment.createtime}"/></div>
 					</div>
 					</c:forEach>
 					

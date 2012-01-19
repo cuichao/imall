@@ -1,7 +1,7 @@
-<%@ include file="/WEB-INF/jsp/global.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.eleven7.imall.bean.*"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<%@ include file="/WEB-INF/jsp/global.jsp"%>
 <html>
 <head>
 <title><c:if test="${orderType == 'toSendList'}">
@@ -31,13 +31,13 @@
 				<th>运费</th>
 				<th>总付款额</th>
 				<th>订单状态</th>
+				<th>订单详情</th>
 				<th>操作</th>
 			</tr>
 			<c:forEach items="${orderList}" var="order">
 				<tr>
 					<td>${order.id}</td>
-					<td><a href="${imall_path}user/settings">${order.user.nickname}</a>
-					</td>
+					<td>${order.user.id}_${order.user.nickname}</td>
 
 					<td>${order.accepter}</td>
 					<td>${order.toAddress}</td>
@@ -88,15 +88,18 @@
 	    快递员已回款（货到付款）
 	   </c:if> 
 	  </td>
-					<td>
+	  <td>
+	  <a href="javascript:void(0);" onmouseover="$('#detail_div_${order.id}').show();" onmouseout="$('#detail_div_${order.id}').hide();">详情</a>
+	  </td>
+	  <td>
 					<c:if test="${order.status  == 'postPay' || order.status  == 'preSend'}">
 					 <input type="button" value="发货"
 						id="${order.id}_send_button" onclick="sendOrder('${order.id}');">
 					</c:if>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="12">
+	 </td>				
+	 </tr>			
+				      <tr id="detail_div_${order.id}" class="hide">
+				      <td colspan="13">
 						<table border="1">
 							<tr>
 								<th>商品</th>
@@ -116,8 +119,9 @@
 									<td>${od.totalpay}</td>
 								</tr>
 							</c:forEach>
-						</table></td>
-				</tr>
+						</table>
+						</td>
+					</tr>			
 			</c:forEach>
 		</table>
 	</div>
