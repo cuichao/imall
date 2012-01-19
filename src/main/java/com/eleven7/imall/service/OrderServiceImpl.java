@@ -120,7 +120,7 @@ public class OrderServiceImpl implements IOrderService{
 		String hql = "select od from OrderDetail od ,Ordering o where o.userid = ? and o.id = od.orderid";
 		return this.orderDetailDao.find(pb, hql, userid);
 	}
-	public synchronized int cancelOrder(Integer orderId)//0表示cancel成功，1表示失败
+	public int cancelOrder(Integer orderId)//0表示cancel成功，1表示失败
 	{
 		Ordering order = this.orderDao.get(orderId);
 		OrderStatus status = order.getStatus();

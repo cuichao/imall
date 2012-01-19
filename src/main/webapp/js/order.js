@@ -130,6 +130,24 @@
 	    });	 
 		
 	};
+	arriveOrder = function(orderId,payType)
+	{
+		var status = "arrived";
+		if(payType == "PAY_AFTER_PRODUCT_ARRIVED")
+		{
+			status = "payment_arrived";
+		}
+		var url = basePath +"/back/trade/" + orderId +"/modifystatus?status="+status;
+		$.ajax({
+	          type : "get",  
+	          url  :  url,
+	          success : function(data){	
+	        	  $("#td_" + orderId + "_order_status").html("货已送到"); 
+	        	  $("#" + orderId + "_arrive_button").attr("disabled",true);
+	          }
+	    });
+	};
+	
 	selectBank2Pay = function(bankElement)
 	{
 		var bank = "bank=" + $(bankElement).attr("id");

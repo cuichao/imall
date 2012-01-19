@@ -27,7 +27,7 @@ public interface IOrderService {
 	
 	public List<OrderDetail> getOrderDetailListByUser(Integer userid,PageBean pb);
 	
-	//这个方法要求线程安全以及事务
+	//这个方法要求线程安全以及事务,待考虑
 	public int cancelOrder(Integer orderId);//0表示cancel成功，1表示失败
 	
 	

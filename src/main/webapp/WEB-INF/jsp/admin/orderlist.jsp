@@ -96,6 +96,10 @@
 					 <input type="button" value="发货"
 						id="${order.id}_send_button" onclick="sendOrder('${order.id}');">
 					</c:if>
+					<c:if test="${order.status  == 'sending'}">
+					 <input type="button" value="买方已收货"
+						id="${order.id}_arrive_button" onclick="arriveOrder('${order.id}','${order.payType}');">
+					</c:if>
 	 </td>				
 	 </tr>			
 				      <tr id="detail_div_${order.id}" class="hide">
