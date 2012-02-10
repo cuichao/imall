@@ -201,6 +201,8 @@ public class ProductController implements ServletContextAware {
 		Product p = this.productService.getProduct(productId);
 		if(p != null)
 		{
+			String msg = "delete product : product (id= %d,name=%s) is deleted by user(%s) ";
+			log.info(String.format(msg, p.getId(),p.getName(),SpringSecurityUtils.getCurrentNickName()));
 			this.productService.deleteProductDetailsByProductId(p.getId());
 			this.productService.deleteProduct(p.getId());
 		}
@@ -278,6 +280,8 @@ public class ProductController implements ServletContextAware {
 		pc.setProductid(p.getId());
 		pc.setUserid(ui.getId());
 		this.productService.saveComment(pc);
+		String msg = "save comments : %s by %s ";
+		log.info(String.format(msg,comment,ui.getEmail()));
 		view.setViewName("redirect:/product/" + p.getId() + "/show");
 		return view;
 	}

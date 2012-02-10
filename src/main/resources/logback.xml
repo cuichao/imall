@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+
+	<property name="log.base" value="./imall/logs" />
+	<property name="default.pattern" value="%d [%thread] %-5level %logger{36} %line - %msg%n" />
+
+	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>${default.pattern}</pattern>
+        </layout>
+	</appender>
+
+    <appender name="imall" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <File>${log.base}/imall.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${log.base}/%d{yyyy-MM-dd}.imall.log.zip</FileNamePattern>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>${default.pattern}</pattern>
+        </layout>
+    </appender>
+
+    <appender name="imallError"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <File>${log.base}/imall_error.log</File> 
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">   
+            <FileNamePattern>${log.base}/imall_error.log.%i.bak</FileNamePattern>   
+            <MinIndex>1</MinIndex>   
+            <MaxIndex>3</MaxIndex>   
+        </rollingPolicy>   
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">   
+            <MaxFileSize>100MB</MaxFileSize>   
+        </triggeringPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>${default.pattern}</pattern>
+        </layout>
+    </appender>
+
+    <appender name="mailService"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${log.base}/imall_mail.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">   
+            <FileNamePattern>${log.base}/imall_mail.log.%i.bak</FileNamePattern>   
+            <MinIndex>1</MinIndex>   
+            <MaxIndex>3</MaxIndex>   
+        </rollingPolicy>   
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">   
+            <MaxFileSize>100MB</MaxFileSize>   
+        </triggeringPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>${default.pattern}</pattern>
+        </layout>
+    </appender>
+
+
+	<logger name="com.eleven7.imall" additivity="false">
+        <level value="DEBUG" />
+        <appender-ref ref="stdout" />
+        <appender-ref ref="imall" />
+        <appender-ref ref="imallError" />
+	</logger>
+
+    <logger name="mailServiceLog" additivity="false">
+        <level value="INFO" />
+        <appender-ref ref="mailService" />
+    </logger>
+	
+	<logger name="org.springframework.web">
+		<level value="WARN" />
+	</logger>
+
+	<logger name="org.springframework">
+		<level value="WARN" />
+	</logger>
+
+	<logger name="org.hibernate">
+		<level value="WARN" />
+	</logger>
+
+	<logger name="org.hibernate.SQL">
+		<level value="ERROR" />
+	</logger>
+
+	<root>
+		<level value="INFO" />
+		<appender-ref ref="stdout" />
+	</root>
+
+</configuration>

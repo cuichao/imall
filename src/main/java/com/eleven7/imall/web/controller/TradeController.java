@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -50,6 +52,7 @@ import com.eleven7.imall.web.dto.ProductDetailDto;
 @Controller
 public class TradeController {
 
+	private static Log log = LogFactory.getLog(TradeController.class);
 	@Autowired
 	private IUserService userService;
 
@@ -151,6 +154,8 @@ public class TradeController {
 		// 更新 product detail count
 		this.updateProductDetailCount(pddList);
 		this.removeProductFromCookie(response);
+		String msg = " save order : order(%d) saved by %s";
+		log.info(String.format(msg,order.getId(),ui.getEmail()));
 		view.addObject("order", order);
 		return view;
 
@@ -165,6 +170,8 @@ public class TradeController {
 			view.addObject("error", "订单已发货，不能取消。如需帮助，请联系管理员！");
 			return view;
 		}
+		String msg = " cancel order : order(%d) saved by %s";
+		log.info(String.format(msg,orderId,SpringSecurityUtils.getCurrentUserName()));
 		view.setViewName("redirect:/trade/myorder");
 		return view;
 	}
@@ -257,6 +264,8 @@ public class TradeController {
 		Ordering order = this.orderService.getOrder(orderId);
 		order.setStatus(status);
 		this.orderService.saveOrUpdateOrder(order);
+		String msg = " modify order status : order(%d) status (%s) by %s";
+		log.info(String.format(msg,orderId,status.toString(),SpringSecurityUtils.getCurrentUserName()));
 	}
 
 	@RequestMapping(value = "/trade/myorder", method = RequestMethod.GET)
@@ -326,13 +335,83 @@ public class TradeController {
 		return null;
 
 	}
+	//支付宝异步返回结果入口
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/callback2pay", method = RequestMethod.GET)
-	public ModelAndView paymentCallBack(HttpServletRequest request)
+	@RequestMapping(value = "/callback2pay")
+	public void paymentCallBack(HttpServletRequest request,HttpServletResponse response)
+	{		
+		//获取支付宝POST过来反馈信息
+		Map<String,String> params = new HashMap<String,String>();
+		Map<String,String[]> requestParams = request.getParameterMap();
+		for (Iterator<String> iter = requestParams.keySet().iterator(); iter.hasNext();) {
+			String name = (String) iter.next();
+			String[] values = (String[]) requestParams.get(name);
+			String valueStr = "";
+			for (int i = 0; i < values.length; i++) {
+				valueStr = (i == values.length - 1) ? valueStr + values[i]
+						: valueStr + values[i] + ",";
+			}
+			params.put(name, valueStr);
+		}
+		
+		//获取支付宝的通知返回参数，可参考技术文档中页面跳转同步通知参数列表(以下仅供参考)//
+
+		String trade_no = request.getParameter("trade_no");			//支付宝交易号
+		String strOrderId = request.getParameter("out_trade_no");	        //获取订单号
+		String total_fee = request.getParameter("total_fee");	        //获取总金额
+		String subject = request.getParameter("subject");//商品名称、订单名称
+		String body = "";
+		if(request.getParameter("body") != null){
+			body = request.getParameter("body");//商品描述、订单备注、描述
+		}
+		String buyer_email = request.getParameter("buyer_email");		//买家支付宝账号
+		String trade_status = request.getParameter("trade_status");		//交易状态
+		
+		String msg = " alipay callback async : order(%s) ";
+		log.info(String.format(msg,strOrderId));
+		
+		try {
+			//获取支付宝的通知返回参数，可参考技术文档中页面跳转同步通知参数列表(以上仅供参考)//
+			PrintWriter out = response.getWriter();
+			//计算得出通知验证结果
+			boolean verify_result = AlipayNotify.verify(params);
+			
+			if(verify_result){//验证成功
+				//////////////////////////////////////////////////////////////////////////////////////////
+				//请在这里加上商户的业务逻辑程序代码		
+				if(trade_status.equals("TRADE_FINISHED") || trade_status.equals("TRADE_SUCCESS")){
+					Ordering order = this.orderService.getOrder(Integer.parseInt(strOrderId));
+					if(order.getStatus() == OrderStatus.prePay)
+					{
+						order.setStatus(OrderStatus.postPay);
+						this.orderService.saveOrUpdateOrder(order);
+						OrderPayment op = new OrderPayment();
+						op.setBank(request.getParameter("bank_seq_no"));
+						op.setMoney(Double.parseDouble(total_fee));
+						op.setOrderid(order.getId());
+						op.setPayType(PayType.PAY_ONLINE);
+						op.setUserid(order.getUserid());
+						this.orderService.saveOrUpdateOrderPayment(op);
+					}			
+				}
+				out.println("success");
+
+				//////////////////////////////////////////////////////////////////////////////////////////
+			}else{
+				out.println("verify_fail_alipay");
+			}
+		 }catch (Exception e) {		
+			e.printStackTrace();
+		}	
+	}
+	
+	//支付宝同步返回结果入口 
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/trade_payment")
+	public ModelAndView redirectFromAlipay(HttpServletRequest request)
 	{
 		ModelAndView view = new ModelAndView();
 		view.setViewName("/trade/payresult");
-		String strOrderId = request.getParameter("");
 		//获取支付宝GET过来反馈信息
 		Map<String,String> params = new HashMap<String,String>();
 		Map<String,String[]> requestParams = request.getParameterMap();
@@ -349,9 +428,8 @@ public class TradeController {
 		
 		
 		//获取支付宝的通知返回参数，可参考技术文档中页面跳转同步通知参数列表(以下仅供参考)//
-
 		String trade_no = request.getParameter("trade_no");				//支付宝交易号
-		String order_no = request.getParameter("out_trade_no");	        //获取订单号
+		String strOrderId = request.getParameter("out_trade_no");	        //获取订单号
 		String total_fee = request.getParameter("total_fee");	        //获取总金额
 		String subject = request.getParameter("subject");//商品名称、订单名称
 		String body = "";
@@ -362,20 +440,16 @@ public class TradeController {
 		String trade_status = request.getParameter("trade_status");		//交易状态
 		
 		//获取支付宝的通知返回参数，可参考技术文档中页面跳转同步通知参数列表(以上仅供参考)//
-		
+		String msg = " alipay callback sync : order(%s) ";
+		log.info(String.format(msg,strOrderId));
 		//计算得出通知验证结果
 		boolean verify_result = AlipayNotify.verify(params);
 		
 		if(verify_result){//验证成功
 			//////////////////////////////////////////////////////////////////////////////////////////
 			//请在这里加上商户的业务逻辑程序代码
-
-			//——请根据您的业务逻辑来编写程序（以下代码仅作参考）——
 			
-			if(trade_status.equals("TRADE_FINISHED") || trade_status.equals("TRADE_SUCCESS")){
-				//判断该笔订单是否在商户网站中已经做过处理（可参考“集成教程”中“3.4返回数据处理”）
-					//如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
-					//如果有做过处理，不执行商户的业务程序
+			if(trade_status.equals("TRADE_FINISHED") || trade_status.equals("TRADE_SUCCESS")){			
 				Ordering order = this.orderService.getOrder(Integer.parseInt(strOrderId));
 				if(order.getStatus() == OrderStatus.prePay)
 				{
@@ -389,12 +463,12 @@ public class TradeController {
 					op.setUserid(order.getUserid());
 					this.orderService.saveOrUpdateOrderPayment(op);
 				}
-				view.addObject("payresult", "0");
+				
 			}
-
+			view.addObject("payresult", "0");
 			//////////////////////////////////////////////////////////////////////////////////////////
 		}else{
-				view.addObject("payresult", "1");
+			view.addObject("payresult", "1");
 		}
 		return view;
 		
@@ -529,7 +603,7 @@ public class TradeController {
 		cookie.setPath("/");
 		response.addCookie(cookie);
 	}
-
+    //支付前根据银行、订单等信息传成brower(里面js自动提交给支付宝)
 	private String getAlipayHtml(Integer orderId, String bank) {
 		
 		//必填参数//

@@ -31,7 +31,8 @@ public class OrderPayment {
 	@Enumerated(value = EnumType.ORDINAL)
 	private PayType payType = PayType.PAY_ONLINE;
 	@Column
-	private String bank;
+	private String bank;	
+
 	public int getId() {
 		return id;
 	}
