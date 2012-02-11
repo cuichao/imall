@@ -17,6 +17,8 @@ a{ text-decoration:none;  }
 .mr20{ margin-right:20px; }
 .hr12{ height:12px; visibility:hidden; border:none; margin:0; }
 .pd10{ padding:10px; }
+.minus,.plus{border: 1px solid #DBDBDB; color: #555; display: inline-block; line-height: 12px;  text-align: center; width: 12px; margin: 0 5px;}
+.count{ width:24px; text-align:center; }
 
 /*table*/
 .base-table{ width:98%; } 
@@ -36,7 +38,7 @@ a{ text-decoration:none;  }
 #header .container{ height:84px; background:url('../images/header-nav.png')  right 0 no-repeat; }
 .logo{ display:inline-block; margin:22px 0 0 14px; float:left}
 .header-nav { float:right;  margin-top:42px; width:398px; }
-.header-nav a{ font-family:tahoma; padding:0 13px; text-shadow:rgba(66, 24, 24, 0.7) 0px 1px 3px;display:inline-block; font-size:18px; color:#ddeac3}
+.header-nav a{ font-family:tahoma; vertical-align:middle; line-height:27px\9; padding:0 13px; text-shadow:rgba(66, 24, 24, 0.7) 0px 1px 3px;display:inline-block; font-size:18px; color:#ddeac3}
 .header-nav a:hover{text-decoration:none; color:#F8F8F8; }
 .search{ float:right;  width:130px; border:1px solid #5f8b02; }
 .search input{ width:105px; height:22px; line-height:22px; float:left; color:#1a1e11; border:none;outline:none; background:#cfcfcf;}
@@ -44,7 +46,7 @@ a{ text-decoration:none;  }
 
 /*-----------------------------main----------------------------------*/
 .aside{ float:right; margin-right:18px}
-#main .container{ padding:18px  0 26px 0; background:#f7f7f7; }
+#main .container{ padding:18px  0 26px 0; min-height:480px; background:#f7f7f7; }
 
 
 /*-----------------------------list----------------------------------*/
@@ -92,7 +94,7 @@ a{ text-decoration:none;  }
 .product-comment-wrap{ min-height:12px; padding-right:12px; }
 .product-color{ margin-bottom:5px;}
 .product-show-tinyimg{ border:1px solid #F2EFEF; cursor:pointer; }
-.product-color .on{ border:2px solid #820909; }
+.product-color .on{ border:1px solid #820909; }
 
 .adv{ margin-left:19px; float:left; }
 /*图片轮播*/
@@ -169,8 +171,8 @@ a{ text-decoration:none;  }
 .pay-successful{ min-height:465px; text-align:center; }
 
 /*-----------------------------个人中心----------------------------------*/
-#leftFrame{ margin-top:-18px; padding-top:18px; width:18%; max-width:180px; height:435px\9; overflow:hidden; margin-right:5px; box-shadow:2px 7px 12px 0 rgba(161,185,144,.6); }
-#rightFrame{ width:78%; padding:0 12px 0 6px;height:436px\9; vertical-align:top;} 
+#leftFrame{ margin-top:-18px; padding-top:18px; width:18%; max-width:180px; min-height:500px; overflow:hidden; margin-right:5px; box-shadow:2px 7px 12px 0 rgba(161,185,144,.6); }
+#rightFrame{ width:78%; padding:0 12px 0 6px;min-height:500px; vertical-align:top;} 
 
 .manage-nav{ width:100%; height:100%; background:#F7F7F7;}
 .manage-nav h3{ font: 18px/22px  "微软雅黑";  padding-left:12px; margin:0 0 6px 0;}

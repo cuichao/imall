@@ -64,11 +64,13 @@
 							<div>
 							请选择数量：
 							<c:if test="${product_count == 0}">
-							<input type="text" id="count" name="count" value="1" size="3" disabled/>
+	                       		<input type="text" id="count" name="count" value="1" size="3" disabled/>
 							<input class="btn disabled" type="button" value="我要购买" disabled>
                             </c:if>
                             <c:if test="${product_count != 0}">
-                             <input type="text" id="count" name="count" value="1" size="3"/> 
+                             <a href="javascript:" class="minus">-</a>
+                             <input type="text" id="count" name="count" class="count" value="1" size="3"/> 
+                             <a href="javascript:" class="plus">+</a>
                              <a class="btn" href="${imall_path}mycar" onclick="return addProduct2Cookie();">我要购买</a>
 							</c:if>
 							</div>
@@ -148,6 +150,19 @@ $(".product-show-tinyimg").click(function(){
 	$(".product-show-tinyimg").removeClass("on");
 	$(this).addClass("on");
 	
+});
+
+$(".minus").click(function(){
+	var target = $(this).next();
+	var curNum = parseInt(target.val());
+	if (curNum <= 1) return;
+	target.val(--curNum);
+});
+
+$(".plus").click(function(){
+	var target = $(this).prev();
+	var curNum = parseInt(target.val());
+	target.val(++curNum);
 });
 </script>
 </html>
