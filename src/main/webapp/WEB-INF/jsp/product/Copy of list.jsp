@@ -4,13 +4,10 @@
 <%@ include file="/WEB-INF/jsp/global.jsp"%>
 <html>
 <head>
-<script type="text/javascript"
-	src="<%=request.getContextPath()%>/js/product.js"></script>
-<link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/css/demohour.css">
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/product.js"></script>
 </head>
 <body>
-	<%@ include file="../header.jsp"%>
+<%@ include file="../header.jsp"%>
 	<div id="main">
 		<div class="container clearfix">
 			<!--aside begin
@@ -18,10 +15,10 @@
 				<a id="advertise_a" href="javascript:void(0);"><img id="advertise_img" class="aside_size"
 					alt="图片说明" /> </a>
 			</div>	
-			-->
+			-->	
 			<div id="banner" class="banner">
 				<ul>
-					<c:set var="big_size" value="${fn:length(advertiseBigList)}" />
+					<c:set var="big_size" value="${fn:length(advertiseBigList)}" />				
 					<c:if test="${big_size > 1}">
 						<c:set var="idx" value="0" />
 						<c:forEach items="${advertiseBigList}" var="ad">
@@ -38,81 +35,62 @@
 				<div id="banner_list">
 					<c:if test="${big_size == 0}">
 						<a id="advertise_big_a" href="javascript:void(0);"><img
-							src="${imall_path}images/banner.png" width="940px" height="300px"
-							des="description" alt="图片说明" title="图片说明" /> </a>
+							src="${imall_path}images/banner.png" width="700px" height="300px"
+							des="description" alt="图片说明" title="图片说明" />
+						</a>
 					</c:if>
 					<c:if test="${big_size > 0}">
 						<c:set var="idx" value="0" />
 						<c:forEach items="${advertiseBigList}" var="ad">
 							<c:if test="${idx == 0}">
 								<a id="advertise_big_a" href="${ad.url}"><img
-									src="${imall_path}${ad.picturePath}" width="940px"
-									height="300px" des="description" alt="图片说明" title="图片说明" /> </a>
+									src="${imall_path}${ad.picturePath}" width="700px"
+									height="300px" des="description" alt="图片说明" title="图片说明" />
+								</a>
 							</c:if>
 							<c:if test="${idx != 0}">
 								<a id="advertise_big_a" class="hide" href="${ad.url }"><img
-									src="${imall_path}${ad.picturePath}" width="940px"
-									height="300px" des="description" alt="图片说明" title="图片说明" /> </a>
+									src="${imall_path}${ad.picturePath}" width="700px"
+									height="300px" des="description" alt="图片说明" title="图片说明" />
+								</a>
 							</c:if>
 							<c:set var="idx" value="${idx + 1}" />
 						</c:forEach>
 					</c:if>
 				</div>
-			</div>
+			</div>		
 			<!--header end-->
 			<!--content begin-->
-			
 			<div class="content fl">
-		        <!--
 				<c:forEach items="${productList}" var="product">
-					
+					<!--product begin-->
 					<div class="list clearfix">
-						<a class="list-img fl"
-							href="${imall_path}product/${product.id}/show"> <c:forEach
-								items="${product.pdList}" var="detail" begin="0" end="0">
+						<a class="list-img fl" href="${imall_path}product/${product.id}/show">
+							<c:forEach items="${product.pdList}" var="detail" begin="0" end="0">							
 								<img src="${imall_path}${detail.picturePath}" alt="说明"
 									title="说明" class="img_normal_size" />
-							</c:forEach> </a>
+							</c:forEach> 
+						</a>
 						<div class="list-content fl">
 							<h3>
-								<span class="product-price fr">￥${product.price}</span> <a
-									href="${imall_path}product/${product.id}/show">${product.name}</a>
+							    <span class="product-price fr">￥${product.price}</span> 
+								<a href="${imall_path}product/${product.id}/show">${product.name}</a>
 							</h3>
 							<p>${product.shortDesc}</p>
 							<a class="btn" href="${imall_path}product/${product.id}/show">详情</a>
 						</div>
-					</div>			
+					</div>
+					<!--product end-->
 				</c:forEach>
-				 -->
-				<div class="urllist">
-				<c:forEach items="${productList}" var="product">
-					<ul onmouseout="this.className='projects_off'" onmouseover="this.className='projects_on'" class="projects_off">
-						<li> <a class="list-img-index fl"
-							href="${imall_path}product/${product.id}/show"> <c:forEach
-								items="${product.pdList}" var="detail" begin="0" end="0">
-								<img src="${imall_path}${detail.picturePath}" alt="说明"
-									title="说明" class="img_index_size" />
-							</c:forEach></a>						 
-						</li>	
-						<li><a href="${imall_path}product/${product.id}/show">${product.name}</a></li>	
-						<li>&nbsp;</li>		
-						<li class="list03"> <p>${product.shortDesc}</p></li>
-						<li class="list04">
-								<span class="product-price fl">￥${product.price}</span>					  				
-								<a class="btn fr" href="${imall_path}product/${product.id}/show">详情</a>
-						</li>
-					</ul>
-				</c:forEach>
-				</div>
 				<div class="page fr">
-					<%@ include file="../page.jsp"%>
+				 <%@ include file="../page.jsp" %>
 				</div>
 			</div>
 			<!--content end-->
 		</div>
 	</div>
-	<input type="hidden" name="page" id="page" value="${page.page}" />
-	<%@ include file="../footer.jsp"%>
+<input type="hidden" name="page" id="page" value="${page.page}" />
+<%@ include file="../footer.jsp"%>
 </body>
 <script>
 var adUrl = new Array();
