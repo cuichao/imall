@@ -1,6 +1,0 @@
-2012-02-11 10:51:58,635 [main] INFO  c.eleven7.imall.common.CommonConfig 76 - The root path is /D:/Users/yangweixian.INTERNAL/imall/imall/target/test-classes//properties
-2012-02-11 10:51:58,637 [main] INFO  c.eleven7.imall.common.CommonConfig 85 - Add the file D:\Users\yangweixian.INTERNAL\imall\imall\target\test-classes\properties\config.properties
-2012-02-11 10:51:58,662 [main] INFO  c.eleven7.imall.common.CommonConfig 85 - Add the file D:\Users\yangweixian.INTERNAL\imall\imall\target\test-classes\properties\db_config.properties
-2012-03-24 18:32:36,754 [main] INFO  c.eleven7.imall.common.CommonConfig 76 - The root path is /D:/work/IMALL_WS/imall/target/test-classes//properties
-2012-03-24 18:32:36,755 [main] INFO  c.eleven7.imall.common.CommonConfig 85 - Add the file D:\work\IMALL_WS\imall\target\test-classes\properties\config.properties
-2012-03-24 18:32:36,768 [main] INFO  c.eleven7.imall.common.CommonConfig 85 - Add the file D:\work\IMALL_WS\imall\target\test-classes\properties\db_config.properties
