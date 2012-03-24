@@ -179,6 +179,7 @@ public class ProductController implements ServletContextAware {
 		view.addObject("page", pb);
 		view.addObject("productList",pList);
 		view.addObject("advertiseList",this.advertiseService.findByType(Constant.ADVERTISE_TYPE.PLAIN));
+		view.addObject("advertiseBigList",this.advertiseService.findByType(Constant.ADVERTISE_TYPE.INDEX_BIG));
 		if(StringUtils.isEmpty(query))
 		{
 			query = "";

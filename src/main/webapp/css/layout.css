@@ -96,13 +96,13 @@ a{ text-decoration:none;  }
 
 .adv{ margin-left:19px; float:left; }
 /*图片轮播*/
-#banner {position:relative; width:922px; height:434px; margin:0 auto 18px; overflow:hidden;}
+#banner {position:relative; height:300px; margin:0 auto 18px 18px; overflow:hidden;}
 #banner_list img {border:0px;}
 #banner_bg {position:absolute; bottom:0;background-color:#000;height:30px;filter: Alpha(Opacity=30);opacity:0.3;z-index:1000;cursor:pointer; width:478px; }
 #banner_info{position:absolute; bottom:0; left:5px;height:22px;color:#fff;z-index:1001;cursor:pointer}
 #banner_text {position:absolute;width:120px;z-index:1002; right:3px; bottom:3px;}
 #banner ul {position:absolute;list-style-type:none;filter: Alpha(Opacity=80);opacity:0.8;z-index:1002;
-			margin:0; padding:0; bottom:3px; right:5px;}
+			margin:0; padding:0; bottom:3px; right:250px;}
 #banner ul li { width:12px; padding:4px; float:left; background:url('../images/banner-btn.png') 4px center no-repeat ; display:block;color:#FFF; text-indent:-9999px; cursor:pointer}
 #banner ul li.on { background-position:-21px center; }
 #banner_list a{position:absolute;} 
