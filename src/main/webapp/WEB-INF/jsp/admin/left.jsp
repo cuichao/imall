@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/reset.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/layout.css">
+<style type="text/css">
+html,body{ height:100%; }
+</style>
 <div class="manage-nav">
 	<div>
 		<h3>订单管理</h3>
